@@ -74,7 +74,7 @@ cd proxy/timingprobe && go test ./...   # likewise for sourcehash and traps
 | `engine/` | The loop: tail, sessionise, classify, policy, actuate. |
 | `analysis/` | Feature extraction, classifier training and evaluation, live labelling. |
 | `generation/` | Controlled attack generation, manifest-driven, with `tc netem` network profiles. |
-| `attack/` | The attacker image. `attack/docs/` is the research record (see the end). |
+| `attack/` | The attacker image and scripts. |
 | `tools/` | Quality gates, persona switching, observation scripts. |
 | `terraform/` | EC2 deployment. |
 | `evidence/` | Captured reference material the Moodle persona was built from. |
@@ -228,8 +228,8 @@ All brands are fictional; all artwork and copy are original. The personas are
 deliberately content-free static sites, which is why crawling tools find almost
 nothing to follow, and part of why they look so different from real traffic.
 "Designed" personas get invented trap identifiers; `moodle` is meant to carry only
-observed ones (see `attack/docs/part3-traps.md`). Its `MOODLE_PREF` cookie trap is
-the one open exception, logged as N1 in the code review.
+observed ones. Its `MOODLE_PREF` cookie trap is the one exception, an invented
+generic preference cookie.
 
 ---
 
@@ -248,9 +248,8 @@ terraform apply -var-file=stage4-gen.tfvars
 ```
 
 The stack ships to the instance as a zip via S3, so the box holds no git
-credentials. The live instance serves plain HTTP on `:80` with no TLS. The
-reasoning, that a self-signed certificate is a worse fingerprint than none, is in
-`attack/docs/DESIGN_NOTES.md`.
+credentials. The live instance serves plain HTTP on `:80` with no TLS, because a
+self-signed certificate would be a worse fingerprint than none.
 
 ---
 
@@ -281,18 +280,3 @@ reasoning, that a self-signed certificate is a worse fingerprint than none, is i
   `caddy.json`. The ordering is what lets them read the values the module sets, and
   it keeps the JSON types native.
 
----
-
-## Research record
-
-`attack/docs/` is the paper trail behind the dissertation, not clutter:
-
-- `DEVELOPMENT_RECORD.md`, the development log
-- `DISSERTATION_FACTS.md`, the verified numbers used in the write-up
-- `SYSTEM_OVERVIEW.md`, the systematic explanation of the whole system
-- `DESIGN_NOTES.md`, design rules and their rationale
-- `part3-traps.md`, the honeytrap design
-- `annotation_rubric.md`, the live-session labelling instrument
-- the September 2026 code review
-
-These are the dissertation's methodological evidence, so they stay.
