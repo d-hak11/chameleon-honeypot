@@ -1,0 +1,352 @@
+# Phase 6 generation manifest -- the single source of ground truth for every
+# labelled session. Labels come from here, never inferred from tool
+# User-Agent or behaviour: generate.py stamps each request with the run_id
+# below (plus "-rNN" per repetition), and label_sessions.py joins purely on
+# that id. analysis/extract_features.py never reads this file, by design --
+# see its module docstring and label_sessions.py's.
+#
+# Fields, all required per run:
+#   run_id           unique per manifest entry (repetitions share this base
+#                    id; generate.py appends -r01, -r02, ... per repetition)
+#   tool             binary invoked in the attacker container
+#   tool_version     recorded for provenance, not enforced
+#   config_name      human label for config_args (distinguishes two configs
+#                    of the same tool, e.g. sweep vs deep-enumeration)
+#   config_args      raw CLI flags. {target_host} -> "proxy", {target_url} ->
+#                    "http://proxy:80"; generate.py substitutes these
+#   target_list_size number of distinct targets this run addresses (1 here;
+#                    Stage 4 may scan multiple persona containers directly)
+#   timeout_budget   hard wall-clock ceiling in seconds (generate.py wraps
+#                    the tool in `timeout`); a run that exceeds it is killed
+#                    and marked failed, not silently truncated
+#   behaviour_class  ground truth: broad_scanning | indexing |
+#                    active_backend_testing
+#   network_profile  key into network_profiles.yml (tc netem shaping on the
+#                    attacker container before this run)
+#   active_persona   which persona the proxy must be serving during this run
+#                    (generate.py pauses the engine and pins this via
+#                    set_context.py -- see the Stage 3 "hazard" notes below)
+#   probe_rate       timing_probe rate during this run (0.0 through Stage 3;
+#                    Stage 4 turns this on)
+#   repetition       independent sessions to generate for this exact config
+#
+# TOOL -> CLASS MATRIX (many-to-many by design; see attack/docs/DESIGN_NOTES.md and the
+# Stage 2 labelling gate below). A class must never map to a single tool, or
+# the classifier can learn User-Agent instead of behaviour:
+#
+#                        broad_scanning   indexing   active_backend_testing
+#   nmap     (sweep)            x
+#   nmap     (focused_deep)                                     x
+#   nikto    (enumeration_mode)                 x
+#   gobuster (quick, tiny wordlist)              x
+#   gobuster (full, common.txt)                  x
+#   wget     (single fetch)         x
+#   wget     (recursive, robots off)             x
+#   curl     (single probe)         x
+#   sh       (curl loop, one endpoint)                            x
+#   sqlmap   (injection test)                                    x
+#
+# METHODOLOGY NOTE: this matrix was derived from observed request patterns,
+# not assumed from what a tool is "for" or how aggressive its config sounds.
+# Three corrections were made after measuring actual traffic shape, all
+# worth recording because the failure mode they share (tool configuration
+# does not reliably predict behaviour class) is exactly what the many-to-
+# many design exists to catch. In each case the wrong assumption was caught
+# BY the gate/measurement, not shipped into the manifest as ground truth:
+#
+#   nmap --version-intensity 9 (originally the active_backend_testing
+#   config) triggers nmap's built-in web-fingerprint probe library
+#   (Sitecore, HNAP1, etc.), producing 2000+ distinct paths -- indexing-
+#   shaped, not concentrated. Fixed with a low-intensity, single-endpoint
+#   config (distinct_paths=1 across all repetitions). An environment/config
+#   artifact: the same binary, tuned differently, produces either shape.
+#
+#   gobuster was originally split broad_scanning (tiny wordlist) vs
+#   indexing (full wordlist), on the assumption that a short enough
+#   wordlist would look shallow. Measurement disagreed: classify.py read
+#   the tiny-wordlist run as indexing too. Unlike the nmap case, this is
+#   structural, not fixable by further shrinking the wordlist -- gobuster's
+#   fixed-rate thread pool produces low-jitter, regular request cadence
+#   regardless of list size, and regular cadence is itself part of what
+#   makes indexing traffic look systematic. Reassigned to indexing-only.
+#
+#   nikto's aggressive vulnerability tuning (-Tuning 456789) was assumed to
+#   be active_backend_testing's third tool without ever being built and
+#   measured. It was measured before being written into a run this time,
+#   not after: 726 requests, 569 distinct paths. "Aggressive" tuning still
+#   means testing many different candidate CVE paths, which is inherently
+#   multi-path regardless of how invasive each individual test is. Dropped
+#   from active_backend_testing entirely -- not reassigned, since it isn't
+#   a clean fit for indexing either (its path set is deliberately unusual,
+#   vulnerability-signature-shaped rather than wordlist-shaped, and Tuning
+#   123's enumeration_mode already covers indexing for this tool).
+#   Concentrated (single-path, many-request) traffic turned out to need an
+#   explicit loop -- none of the installed scanners produce it as a native
+#   mode -- so the replacement is a small curl loop (tool: sh) verified at
+#   40/40 requests to one path.
+#
+# sqlmap does NOT get a second class. Its --crawl mode was tried for
+# indexing and produced near-zero traffic (1-2 requests) against these
+# personas, because they are deliberately content-free static sites with
+# almost no internal link structure for a spider to discover (see
+# README.md, Personas) -- not a labelling problem, an environment one.
+#
+# PER-REQUEST TIMEOUTS (revised for Stage 4 re-run): each tool's per-request
+# patience below reflects what that behaviour class would realistically
+# tolerate, chosen independently of the induced-delay range this run is
+# probing for -- setting a value BECAUSE it crosses that range would bake the
+# desired abandonment signal into the ground truth rather than let it emerge.
+# The original Stage 4 run only gave nmap sweep_default a timeout tight
+# enough to ever cross the induced delay (200ms vs. a ~140-540ms range),
+# which confined every abandonment observation to one config -- uninterpretable
+# as a class-level signal. Rationale per class:
+#   broad_scanning         -- short: real sweepers are impatient, moving
+#                             across many hosts and can't afford to stall on
+#                             one. nmap --max-rtt-timeout 1000ms (raised from
+#                             200ms, which assumed LAN conditions inconsistent
+#                             with the WAN-like netem profiles this matrix
+#                             applies); curl --max-time 3 (a reachability
+#                             probe, not a wait); wget --timeout=3 (same).
+#   active_backend_testing -- long: an attacker who has committed to one
+#                             backend tolerates slow responses, since leaving
+#                             means starting over. nmap focused_deep left
+#                             with no --max-rtt-timeout override, so its own
+#                             adaptive RTT estimator (which raises its ceiling
+#                             under sustained latency) applies; sqlmap
+#                             --timeout=20 (near its own 30s default, the
+#                             realistic patience of someone testing an
+#                             injection); sh/curl-loop --max-time 8 (raised
+#                             from 2 -- watching for a timing difference
+#                             requires waiting long enough to see one).
+#   indexing               -- intermediate: broad within the one host, not
+#                             attacker-grade persistence, but not moving to
+#                             another host either. gobuster --timeout 5s
+#                             (x2 configs); wget --timeout=5; nikto -timeout 5
+#                             (verified against the installed 2.5.0 binary --
+#                             `nikto -H` documents "-timeout+  Timeout for
+#                             requests (default 10 seconds)"; -maxtime 45
+#                             is a separate total-scan budget, not per-request,
+#                             and is unchanged).
+
+runs:
+
+  # =====================================================================
+  # Stage 1 -- one session, end to end. One tool, one config, one persona,
+  # probe off.
+  # =====================================================================
+  - run_id: stage1-nmap-sweep
+    tool: nmap
+    tool_version: "7.94"
+    config_name: sweep_default
+    config_args: "-sV -p 80,443,8080 --max-rtt-timeout 1000ms {target_host}"
+    target_list_size: 1
+    timeout_budget: 60
+    behaviour_class: broad_scanning
+    network_profile: near
+    active_persona: moodle
+    probe_rate: 0.0
+    repetition: 1
+
+  # =====================================================================
+  # Stage 2 -- the labelling gate. Same tool (nmap), two configs, two
+  # classes. Must produce different labels and a byte-identical User-Agent,
+  # or the whole ablation is invalid (a content-only classifier could win
+  # on UA rather than behaviour).
+  # =====================================================================
+  - run_id: stage2-nmap-sweep
+    tool: nmap
+    tool_version: "7.94"
+    config_name: sweep_default
+    config_args: "-sV -p 80,443,8080 --max-rtt-timeout 1000ms {target_host}"
+    target_list_size: 1
+    timeout_budget: 60
+    behaviour_class: broad_scanning
+    network_profile: near
+    active_persona: moodle
+    probe_rate: 0.0
+    repetition: 1
+
+  - run_id: stage2-nmap-deep
+    tool: nmap
+    tool_version: "7.94"
+    config_name: focused_deep
+    config_args: "-sV -p 80 --version-intensity 2 --script=http-methods,http-trace,http-date --script-args http-methods.test-all -T3 --max-retries 3 {target_host}"
+    target_list_size: 1
+    timeout_budget: 90
+    behaviour_class: active_backend_testing
+    network_profile: near
+    active_persona: moodle
+    probe_rate: 0.0
+    repetition: 1
+
+  # =====================================================================
+  # Stage 2b -- labelling gate for the three newly-added tools (approval
+  # condition 2). gobuster and wget each get the same same-tool/two-class
+  # pairing as Stage 2's nmap gate. sqlmap has no second class to gate
+  # against -- see the matrix note above -- so it gets a single-config
+  # sanity run instead, checked for concentrated (few-path) shape rather
+  # than a label-differs-from comparison.
+  # =====================================================================
+  - run_id: stage2b-gobuster-quick
+    tool: gobuster
+    tool_version: "3.5"
+    config_name: quick_tiny_wordlist
+    config_args: "dir -u {target_url} -w /opt/attack/wordlists/tiny.txt -t 5 --timeout 5s"
+    target_list_size: 1
+    timeout_budget: 30
+    # Reassigned from broad_scanning after the Stage 2b gate: classify.py
+    # read this as indexing regardless of wordlist size, and that turned out
+    # to be structural, not a wordlist artifact -- gobuster's fixed-rate
+    # thread pool produces low-jitter, regular request cadence no matter how
+    # short the list is, which is itself an indexing signature to any
+    # cadence-sensitive heuristic. See the methodology note near the top of
+    # this file. Kept as a distinct (shallower) indexing config rather than
+    # dropped, since it's still a real, useful point in the indexing space.
+    behaviour_class: indexing
+    network_profile: near
+    active_persona: moodle
+    probe_rate: 0.0
+    repetition: 1
+
+  - run_id: stage2b-gobuster-full
+    tool: gobuster
+    tool_version: "3.5"
+    config_name: full_common_wordlist
+    config_args: "dir -u {target_url} -w /usr/share/dirb/wordlists/common.txt -t 20 --timeout 5s"
+    target_list_size: 1
+    timeout_budget: 60
+    behaviour_class: indexing
+    network_profile: near
+    active_persona: moodle
+    probe_rate: 0.0
+    repetition: 1
+
+  - run_id: stage2b-wget-single
+    tool: wget
+    tool_version: "1.21.3"
+    config_name: single_fetch
+    config_args: "-q -O /dev/null --timeout=3 {target_url}"
+    target_list_size: 1
+    timeout_budget: 30
+    behaviour_class: broad_scanning
+    network_profile: near
+    active_persona: moodle
+    probe_rate: 0.0
+    repetition: 1
+
+  - run_id: stage2b-wget-recursive
+    tool: wget
+    tool_version: "1.21.3"
+    config_name: recursive_robots_off
+    # -e robots=off: a real hostile indexing tool has no reason to honour a
+    # voluntary crawling convention, and empirically these personas'
+    # robots.txt (Allow/Disallow mix with a trailing comment) made wget's
+    # parser refuse to recurse at all -- verified by testing with and
+    # without this flag.
+    config_args: "-r -l 2 -e robots=off -np -nv --delete-after --timeout=5 {target_url}"
+    target_list_size: 1
+    timeout_budget: 45
+    behaviour_class: indexing
+    network_profile: near
+    active_persona: moodle
+    probe_rate: 0.0
+    repetition: 1
+
+  - run_id: stage2b-sqlmap-injection
+    tool: sqlmap
+    tool_version: "1.7.2"
+    config_name: injection_test
+    config_args: "-u {target_url}/login/index.php?id=1 --batch --level=1 --timeout=20"
+    target_list_size: 1
+    timeout_budget: 45
+    behaviour_class: active_backend_testing
+    network_profile: near
+    active_persona: moodle
+    probe_rate: 0.0
+    repetition: 1
+
+  # curl added to broad_scanning after gobuster's reassignment left it with
+  # only nmap + wget. A single, minimal-timeout probe is about as far from
+  # "systematic" as traffic gets -- no config-vs-class tension to gate here.
+  - run_id: stage2c-curl-single
+    tool: curl
+    tool_version: "8.5.0"
+    config_name: single_probe
+    config_args: "-s -o /dev/null -w %{http_code} --connect-timeout 3 --max-time 3 {target_url}/"
+    target_list_size: 1
+    timeout_budget: 15
+    behaviour_class: broad_scanning
+    network_profile: near
+    active_persona: moodle
+    probe_rate: 0.0
+    repetition: 1
+
+  # active_backend_testing's originally-documented third tool (nikto
+  # attack_mode) was never actually built as a run and, once measured
+  # instead of assumed, turned out to be indexing-shaped too (569 distinct
+  # paths / 726 requests, Tuning 456789) -- nikto's vulnerability tuning
+  # codes test many candidate CVE paths, which is inherently multi-path
+  # regardless of aggressiveness. Same lesson as nmap-intensity and
+  # gobuster-cadence, caught before it reached the manifest as a false
+  # ground-truth claim rather than after. `sh` is the literal tool here
+  # because concentrated (single-path, many-request) traffic needs a loop --
+  # none of the installed scanners produce it as a native mode. Verified:
+  # 40/40 requests to the same path, query value varying (distinct_paths is
+  # computed on path only, per session.py's RequestRecord.path property).
+  - run_id: stage2d-curl-hammer
+    tool: sh
+    tool_version: "n/a (shell loop; see config_name)"
+    config_name: repeated_single_endpoint
+    config_args: >-
+      -c 'i=1; while [ "$i" -le 40 ]; do curl -s -o /dev/null --max-time 8
+      {target_url}/login/index.php?id=$i; i=$((i+1)); done'
+    target_list_size: 1
+    timeout_budget: 30
+    behaviour_class: active_backend_testing
+    network_profile: near
+    active_persona: moodle
+    probe_rate: 0.0
+    repetition: 1
+
+  # =====================================================================
+  # Stage 3 -- one full slice: 3 classes x 1 tool each x 1 network profile
+  # x 1 persona x 3 repetitions = 9 sessions.
+  # =====================================================================
+  - run_id: stage3-broad-nmap-sweep
+    tool: nmap
+    tool_version: "7.94"
+    config_name: sweep_default
+    config_args: "-sV -p 80,443,8080 --max-rtt-timeout 1000ms {target_host}"
+    target_list_size: 1
+    timeout_budget: 60
+    behaviour_class: broad_scanning
+    network_profile: near
+    active_persona: moodle
+    probe_rate: 0.0
+    repetition: 3
+
+  - run_id: stage3-indexing-nikto
+    tool: nikto
+    tool_version: "2.5.0"  # pinned in attack/Dockerfile; unpinned HEAD had a port_check() regression
+    config_name: enumeration_mode
+    config_args: "-h {target_host} -p 80 -nointeractive -Tuning 123 -maxtime 45 -timeout 5"
+    target_list_size: 1
+    timeout_budget: 75
+    behaviour_class: indexing
+    network_profile: near
+    active_persona: moodle
+    probe_rate: 0.0
+    repetition: 3
+
+  - run_id: stage3-abt-nmap-deep
+    tool: nmap
+    tool_version: "7.94"
+    config_name: focused_deep
+    config_args: "-sV -p 80 --version-intensity 2 --script=http-methods,http-trace,http-date --script-args http-methods.test-all -T3 --max-retries 3 {target_host}"
+    target_list_size: 1
+    timeout_budget: 90
+    behaviour_class: active_backend_testing
+    network_profile: near
+    active_persona: moodle
+    probe_rate: 0.0
+    repetition: 3

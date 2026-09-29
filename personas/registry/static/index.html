@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Greenwood Student Records</title>
+    <meta name="keywords" content="greenwood, student records, enrolment, registry">
+    <link rel="shortcut icon" href="favicon.svg">
+    <link rel="stylesheet" type="text/css" href="theme/styles.css">
+</head>
+<body id="page-registry-home" class="path-home dir-ltr lang-en">
+
+<nav class="navbar" aria-label="Site navigation">
+    <button class="nav-toggle" data-gc-drawer-open aria-label="Open navigation">
+        <svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-home"/></svg>
+    </button>
+    <a class="navbar-brand" href="index.php">
+        <span class="brand-icon"><svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-cap"/></svg></span>
+        <span>Greenwood Student Records</span>
+    </a>
+
+    <form class="simplesearchform" action="records/search.php" method="get" autocomplete="off" onsubmit="return false;">
+        <input type="text" id="gc-course-search" class="form-control" name="q"
+               placeholder="Search records" aria-label="Search records" value="">
+        <button type="submit" class="btn-submit" title="Perform search">
+            <svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-search"/></svg>
+        </button>
+    </form>
+
+    <div class="navbar-spacer"></div>
+    <div class="usernavigation">
+        <a class="btn btn-primary btn-sm" href="login/index.php">
+            <svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-user"/></svg>
+            Log in
+        </a>
+    </div>
+</nav>
+
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a href="index.php">Home</a></li>
+        <li aria-current="page">Student records</li>
+    </ol>
+
+    <div class="hero">
+        <h1>Greenwood Student Records</h1>
+        <p>Official record of enrolments, programme registration and student
+            progression. Staff and students sign in to view and update records.</p>
+    </div>
+
+    <h2 class="section-title">Quick access</h2>
+    <div class="card-grid">
+        <div class="card">
+            <span class="course-icon"><svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-book"/></svg></span>
+            <p class="coursecat">Enrolment</p>
+            <h3 class="coursename"><a href="enrolment/index.php">New enrolment requests</a></h3>
+            <p class="course-description">Submit and track enrolment and programme requests.</p>
+        </div>
+        <div class="card">
+            <span class="course-icon"><svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-user"/></svg></span>
+            <p class="coursecat">Profile</p>
+            <h3 class="coursename"><a href="records/index.php">Personal details</a></h3>
+            <p class="course-description">Review and update contact and identity information.</p>
+        </div>
+        <div class="card">
+            <span class="course-icon"><svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-calendar"/></svg></span>
+            <p class="coursecat">Assessment</p>
+            <h3 class="coursename"><a href="results/index.php">Exam results</a></h3>
+            <p class="course-description">Access published results and progression outcomes.</p>
+        </div>
+        <div class="card">
+            <span class="course-icon"><svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-book"/></svg></span>
+            <p class="coursecat">Programmes</p>
+            <h3 class="coursename"><a href="programmes/index.php">Programme catalogues</a></h3>
+            <p class="course-description">Browse courses, modules and programme requirements.</p>
+        </div>
+    </div>
+</div>
+
+<div class="cookie-notice" id="gc-cookie-notice" role="dialog" aria-live="polite">
+    <p>This system uses cookies to keep your session secure and give you the best
+        experience. Read our <a href="policy/cookies.php">cookie policy</a>.</p>
+    <button class="btn btn-secondary btn-sm" id="gc-cookie-accept">Accept</button>
+</div>
+
+<footer id="page-footer" class="footer-popover bg-white">
+    <div class="footer-links">
+        <a href="index.php">Home</a>
+        <a href="enrolment/index.php">Enrolment</a>
+        <a href="records/index.php">Records</a>
+        <a href="results/index.php">Results</a>
+        <a href="login/forgot_password.php">Forgotten password</a>
+    </div>
+    <p class="logininfo">You are not logged in. (<a href="login/index.php">Log in</a>)</p>
+    <p>&copy; <span id="gc-year"></span> Greenwood Student Records</p>
+</footer>
+
+<script src="theme/app.js"></script>
+</body>
+</html>

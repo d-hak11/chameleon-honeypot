@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in | Greenwood Finance Portal</title>
+    <meta name="keywords" content="greenwood, finance, sign in">
+    <link rel="shortcut icon" href="favicon.svg">
+    <link rel="stylesheet" type="text/css" href="theme/styles.css">
+</head>
+<body id="page-finance-login" class="path-login dir-ltr lang-en">
+
+<nav class="navbar" aria-label="Site navigation">
+    <a class="navbar-brand" href="index.php">
+        <span class="brand-icon"><svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-cap"/></svg></span>
+        <span>Greenwood Finance Portal</span>
+    </a>
+</nav>
+
+<div class="login-container">
+    <div class="login-brand">
+        <svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-lock-open"/></svg>
+    </div>
+
+    <div class="alert alert-danger" id="gc-login-alert" role="alert"></div>
+
+    <form class="login-form" action="login/index.php" method="post" id="login">
+        <h1 class="login-title">Sign in to the Finance Portal</h1>
+        <div class="loginerrors"></div>
+
+        <div class="form-group">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" name="username" id="username" class="form-control"
+                   value="" placeholder="Enter your username" autocomplete="username">
+        </div>
+
+        <div class="form-group">
+            <label for="password" class="form-label">Password</label>
+            <div class="password-wrap">
+                <input type="password" name="password" id="password" value=""
+                       class="form-control" placeholder="Enter your password" autocomplete="current-password">
+                <button type="button" class="password-toggle" id="gc-pw-toggle" aria-label="Show password">
+                    <svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-lock-open"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <input id="anchor" type="hidden" name="anchor" value="">
+
+        <div class="login-actions">
+            <button type="submit" class="btn btn-primary btn-block" id="loginbtn">
+                <svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-lock-open"/></svg>
+                <span class="btn-label">Log in</span>
+            </button>
+        </div>
+    </form>
+
+    <p class="logininfo">You are not logged in.</p>
+    <p class="helplink">Forgotten your username or password?
+        <a href="login/forgot_password.php">Help</a></p>
+</div>
+
+<div class="cookie-notice" id="gc-cookie-notice" role="dialog" aria-live="polite">
+    <p>We use cookies to keep your session secure. Read our
+        <a href="policy/cookies.php">cookie policy</a>.</p>
+    <button class="btn btn-secondary btn-sm" id="gc-cookie-accept">Accept</button>
+</div>
+
+<footer id="page-footer" class="footer-popover bg-white">
+    <p class="logininfo">You are not logged in. (<a href="login/index.php">Log in</a>)</p>
+    <p>&copy; <span id="gc-year"></span> Greenwood Finance Portal</p>
+</footer>
+
+<script src="theme/app.js"></script>
+</body>
+</html>

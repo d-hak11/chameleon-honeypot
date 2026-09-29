@@ -1,0 +1,159 @@
+#!/bin/bash
+# Chameleon honeypot -- instance bootstrap.
+#
+# No credentials are written to this host. AWS access is via the instance
+# profile; the pseudonymisation salt is generated locally on first boot and
+# never leaves the instance.
+set -euxo pipefail
+
+exec > >(tee /var/log/chameleon-bootstrap.log) 2>&1
+
+dnf update -y
+dnf install -y docker unzip
+
+systemctl enable --now docker
+
+# Docker Compose v2 plugin.
+mkdir -p /usr/local/lib/docker/cli-plugins
+curl -fsSL \
+  "https://github.com/docker/compose/releases/download/v2.29.7/docker-compose-linux-x86_64" \
+  -o /usr/local/lib/docker/cli-plugins/docker-compose
+chmod +x /usr/local/lib/docker/cli-plugins/docker-compose
+
+install -d -m 0755 /opt/chameleon
+cd /opt/chameleon
+
+# Stack source, pulled with the instance profile -- no git remote, no deploy
+# key, nothing to steal from this host.
+aws s3 cp "s3://${bucket}/${stack_key}" /tmp/stack.zip --region "${region}"
+unzip -o -q /tmp/stack.zip -d /opt/chameleon
+rm -f /tmp/stack.zip
+
+# Pseudonymisation salt: READ, never generated here. It must survive
+# instance replacement -- a fresh salt would make the same returning
+# attacker hash to two different source_hash values across that boundary,
+# silently corrupting repeat_visit_count and every other cross-session
+# feature rather than failing visibly.
+install -d -m 0700 /opt/chameleon/secrets
+aws s3 cp "s3://${bucket}/${salt_key}" \
+  /opt/chameleon/secrets/source_salt.env --region "${region}"
+chmod 600 /opt/chameleon/secrets/source_salt.env
+
+# Fail the bootstrap loudly if the salt did not arrive: the proxy would
+# refuse to start anyway (source_hash provisioning fails closed), and a
+# half-started stack is worse than an obvious failure.
+grep -q '^CHAMELEON_SOURCE_SALT=.\{16,\}' /opt/chameleon/secrets/source_salt.env
+
+# Production posture:
+#   - real ports, because opportunistic scanning targets 80/443
+#   - private sources excluded: on a public host, RFC1918 traffic is our own
+python3 - <<'PY'
+import json
+p = "/opt/chameleon/proxy/caddy.json"
+cfg = json.load(open(p))
+for h in cfg["apps"]["http"]["servers"]["srv0"]["routes"][0]["handle"]:
+    if h.get("handler") == "timing_probe":
+        h["probe_rate"] = ${probe_rate}
+with open(p, "w") as f:
+    json.dump(cfg, f, indent=2)
+    f.write("\n")
+PY
+
+cat > /opt/chameleon/.env <<'ENVEOF'
+HTTP_PORT=80
+HTTPS_PORT=443
+EXCLUDE_PRIVATE=true
+ENVEOF
+
+# Operator tooling defaults to :8080; production serves on :80.
+echo 'export PROXY_URL=http://localhost:80' > /etc/profile.d/chameleon.sh
+
+docker compose -f /opt/chameleon/docker-compose.yml up -d --build
+
+# Telemetry shipping. The instance is disposable; the collected data is not.
+cat > /usr/local/bin/ship-telemetry.sh <<SHIPEOF
+#!/bin/bash
+set -euo pipefail
+STAMP="\$(date -u +%Y/%m/%d)"
+HOST="\$(hostname)"
+
+# Caddy access logs (already pseudonymised at write time).
+docker run --rm \
+  -v chameleon_caddy-logs:/logs:ro \
+  -v /tmp/ship:/out \
+  public.ecr.aws/docker/library/alpine:3 \
+  sh -c 'cp -r /logs/. /out/ 2>/dev/null || true'
+
+# Engine decisions log and session state.
+docker run --rm \
+  -v chameleon_engine-state:/state:ro \
+  -v /tmp/ship:/out \
+  public.ecr.aws/docker/library/alpine:3 \
+  sh -c 'cp -r /state/. /out/ 2>/dev/null || true'
+
+aws s3 sync /tmp/ship "s3://${bucket}/telemetry/\$STAMP/\$HOST/" \
+  --region "${region}" --only-show-errors
+rm -rf /tmp/ship/*
+SHIPEOF
+chmod +x /usr/local/bin/ship-telemetry.sh
+mkdir -p /tmp/ship
+
+cat > /etc/systemd/system/chameleon-ship.service <<'UNITEOF'
+[Unit]
+Description=Ship chameleon honeypot telemetry to S3
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/ship-telemetry.sh
+UNITEOF
+
+cat > /etc/systemd/system/chameleon-ship.timer <<TIMEREOF
+[Unit]
+Description=Ship chameleon honeypot telemetry every ${ship_interval_min} minutes
+
+[Timer]
+OnBootSec=${ship_interval_min}min
+OnUnitActiveSec=${ship_interval_min}min
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+TIMEREOF
+
+systemctl daemon-reload
+systemctl enable --now chameleon-ship.timer
+
+%{ if enable_generation_harness ~}
+# Phase 6 Stage 4 generation harness. Auto-starts on boot and restarts on
+# failure -- covering an instance reboot mid-matrix -- but stops for good
+# once generate.py exits 0 (the whole manifest completed with no timeouts).
+# StartLimitBurst caps retries so a persistently-failing run doesn't loop
+# forever unattended on a billed instance.
+cat > /etc/systemd/system/chameleon-generate.service <<'GENEOF'
+[Unit]
+Description=Chameleon honeypot Stage 4 generation matrix
+After=docker.service network-online.target
+Requires=docker.service
+Wants=network-online.target
+StartLimitIntervalSec=3600
+StartLimitBurst=20
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/chameleon
+ExecStartPre=/bin/sleep 15
+ExecStart=/usr/bin/python3 /opt/chameleon/generation/generate.py --manifest /opt/chameleon/generation/run_manifest_stage4.yml --checkpoint /opt/chameleon/generation/checkpoint.json
+Restart=on-failure
+RestartSec=30
+StandardOutput=append:/var/log/chameleon-generate.log
+StandardError=append:/var/log/chameleon-generate.log
+
+[Install]
+WantedBy=multi-user.target
+GENEOF
+
+systemctl daemon-reload
+systemctl enable --now chameleon-generate.service
+%{ endif ~}
+
+echo "chameleon: bootstrap complete"

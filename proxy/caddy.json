@@ -1,0 +1,249 @@
+{
+  "admin": {
+    "listen": ":2019"
+  },
+  "logging": {
+    "logs": {
+      "default": {
+        "writer": {
+          "output": "stderr"
+        },
+        "encoder": {
+          "format": "console"
+        }
+      },
+      "access": {
+        "level": "info",
+        "writer": {
+          "output": "file",
+          "filename": "/var/log/caddy/access.json",
+          "roll_size_mb": 50,
+          "roll_keep": 20,
+          "roll_keep_days": 14
+        },
+        "encoder": {
+          "format": "filter",
+          "wrap": {
+            "format": "json"
+          },
+          "fields": {
+            "request>remote_ip": {
+              "filter": "delete"
+            },
+            "request>client_ip": {
+              "filter": "delete"
+            },
+            "request>headers>X-Forwarded-For": {
+              "filter": "delete"
+            },
+            "request>headers>X-Real-Ip": {
+              "filter": "delete"
+            },
+            "request>headers>Forwarded": {
+              "filter": "delete"
+            },
+            "request>headers>True-Client-Ip": {
+              "filter": "delete"
+            },
+            "request>headers>X-Client-Ip": {
+              "filter": "delete"
+            },
+            "request>headers>Cf-Connecting-Ip": {
+              "filter": "delete"
+            }
+          }
+        }
+      }
+    }
+  },
+  "apps": {
+    "http": {
+      "http_port": 80,
+      "servers": {
+        "srv0": {
+          "listen": [
+            ":80"
+          ],
+          "logs": {
+            "default_logger_name": "access"
+          },
+          "routes": [
+            {
+              "match": [
+                {
+                  "method": [
+                    "GET"
+                  ],
+                  "path": [
+                    "/admin/index.php"
+                  ]
+                }
+              ],
+              "handle": [
+                {
+                  "handler": "vars",
+                  "trap_triggered": true,
+                  "trap_id": "admin_path_resolved"
+                }
+              ]
+            },
+            {
+              "handle": [
+                {
+                  "handler": "source_hash"
+                },
+                {
+                  "handler": "log_append",
+                  "key": "persona",
+                  "value": "moodle"
+                },
+                {
+                  "handler": "log_append",
+                  "key": "run_id",
+                  "value": ""
+                },
+                {
+                  "handler": "log_append",
+                  "key": "source_hash",
+                  "value": "source_hash"
+                },
+                {
+                  "handler": "log_append",
+                  "key": "source_private",
+                  "value": "source_private"
+                },
+                {
+                  "handler": "log_append",
+                  "key": "probe_applied",
+                  "value": "probe_applied"
+                },
+                {
+                  "handler": "log_append",
+                  "key": "probe_delay_ms",
+                  "value": "probe_delay_ms"
+                },
+                {
+                  "handler": "log_append",
+                  "key": "client_abandoned",
+                  "value": "client_abandoned"
+                },
+                {
+                  "handler": "log_append",
+                  "key": "abandon_after_ms",
+                  "value": "abandon_after_ms"
+                },
+                {
+                  "handler": "log_append",
+                  "key": "trap_triggered",
+                  "value": "trap_triggered"
+                },
+                {
+                  "handler": "log_append",
+                  "key": "trap_id",
+                  "value": "trap_id"
+                },
+                {
+                  "handler": "log_append",
+                  "key": "trap_field_modified",
+                  "value": "trap_field_modified"
+                },
+                {
+                  "handler": "traps",
+                  "persona": "moodle",
+                  "personas_root": "/etc/chameleon/personas"
+                },
+                {
+                  "handler": "subroute",
+                  "routes": [
+                    {
+                      "match": [
+                        {
+                          "method": [
+                            "POST"
+                          ],
+                          "path": [
+                            "/admin/index.php"
+                          ]
+                        }
+                      ],
+                      "handle": [
+                        {
+                          "handler": "rewrite",
+                          "method": "GET",
+                          "uri": "/admin/rejected.html"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "handler": "timing_probe",
+                  "persona": "moodle",
+                  "personas_root": "/etc/chameleon/personas",
+                  "probe_rate": 0.0,
+                  "min_baseline": 3
+                },
+                {
+                  "handler": "headers",
+                  "response": {
+                    "deferred": true,
+                    "set": {
+                      "Server": [
+                        "nginx"
+                      ]
+                    },
+                    "delete": [
+                      "Via",
+                      "X-Powered-By",
+                      "X-Caddy"
+                    ]
+                  }
+                },
+                {
+                  "handler": "encode",
+                  "encodings": {
+                    "gzip": {}
+                  },
+                  "prefer": [
+                    "gzip"
+                  ]
+                },
+                {
+                  "handler": "reverse_proxy",
+                  "upstreams": [
+                    {
+                      "dial": "moodle:80"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "errors": {
+            "routes": [
+              {
+                "handle": [
+                  {
+                    "handler": "headers",
+                    "response": {
+                      "set": {
+                        "Server": [
+                          "nginx"
+                        ]
+                      },
+                      "delete": [
+                        "Via",
+                        "X-Powered-By",
+                        "X-Caddy"
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

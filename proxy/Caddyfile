@@ -1,0 +1,55 @@
+# REFERENCE ONLY -- the running proxy uses proxy/caddy.json (JSON config).
+#
+# This Caddyfile is kept as human-readable documentation of the intended
+# routing, and can be turned back into JSON with:
+#   caddy adapt --config proxy/Caddyfile --adapter caddyfile > proxy/caddy.json
+# The live behaviour is defined by caddy.json; its only changing field is the
+# reverse_proxy upstream, rotated at runtime by tools/switch_persona.sh via the
+# Caddy admin API (in-network only, never published to the host -- Phase 3).
+#
+# Phase 4 adds JSON access logging to /var/log/caddy/access.json, tailed by
+# the engine container. It also stamps each log line with which persona
+# actually served that request (log_append, server-side only -- never sent
+# to the client), so per-request persona attribution survives a mid-session
+# rotation instead of being read from a single, possibly-stale snapshot.
+#
+# Phase 5 adds the timing_probe handler (proxy/timingprobe/, a custom module
+# built via xcaddy -- see proxy/Dockerfile) plus four more log_append fields
+# it stamps per request: probe_applied, probe_delay_ms, client_abandoned,
+# abandon_after_ms. timing_probe has no Caddyfile directive registered (JSON
+# config only), so it cannot be expressed below -- this reference file is
+# necessarily incomplete for Phase 5 on; caddy.json is authoritative. It must
+# run BEFORE those four log_append entries in caddy.json's handle[] array so
+# their default (non-"early") read of the vars map happens on the way back
+# up the chain, after timing_probe has already set them.
+
+{
+    # Keep runtime logs on stderr; access logs go to file.
+    log default {
+        output stderr
+        format console
+    }
+}
+
+:80 {
+    log {
+        output file /var/log/caddy/access.json
+        format json
+    }
+
+    log_append persona moodle
+    # log_append probe_applied probe_applied       (JSON-only, see above)
+    # log_append probe_delay_ms probe_delay_ms      (JSON-only, see above)
+    # log_append client_abandoned client_abandoned  (JSON-only, see above)
+    # log_append abandon_after_ms abandon_after_ms  (JSON-only, see above)
+    # timing_probe { persona moodle; probe_rate 0.0 }  (JSON-only, see above)
+
+    header {
+        -Via
+        -X-Powered-By
+        -X-Caddy
+        Server nginx
+    }
+    encode gzip
+    reverse_proxy moodle:80
+}

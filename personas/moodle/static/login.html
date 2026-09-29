@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in to the site | Greenwood College</title>
+    <meta name="keywords" content="moodle, log in, Greenwood College">
+    <link rel="shortcut icon" href="favicon.svg">
+    <link rel="stylesheet" type="text/css" href="theme/styles.css">
+</head>
+<body id="page-login-index" class="path-login dir-ltr lang-en">
+
+<nav class="navbar" aria-label="Site navigation">
+    <a class="navbar-brand" href="index.php">
+        <span class="brand-icon"><svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-cap"/></svg></span>
+        <span>Greenwood College</span>
+    </a>
+</nav>
+
+<div class="login-container">
+    <div class="login-brand">
+        <svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-cap"/></svg>
+    </div>
+
+    <div class="alert alert-danger" id="gc-login-alert" role="alert"></div>
+
+    <form class="login-form" action="login/index.php" method="post" id="login">
+
+        <input type="hidden" name="logintoken" value="staticlogintoken0000000000000000">
+        <input id="anchor" type="hidden" name="anchor" value="">
+
+        <h1 class="login-title">Log in to your site</h1>
+        <div class="loginerrors"></div>
+
+        <div class="form-group">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" name="username" id="username" class="form-control"
+                   value="" placeholder="Enter your username" autocomplete="username">
+        </div>
+
+        <div class="form-group">
+            <label for="password" class="form-label">Password</label>
+            <div class="password-wrap">
+                <input type="password" name="password" id="password" value=""
+                       class="form-control" placeholder="Enter your password" autocomplete="current-password">
+                <button type="button" class="password-toggle" id="gc-pw-toggle" aria-label="Show password">
+                    <svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-lock-open"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="login-actions">
+            <button type="submit" class="btn btn-primary btn-block" id="loginbtn">
+                <svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-lock-open"/></svg>
+                <span class="btn-label">Log in</span>
+            </button>
+        </div>
+    </form>
+
+    <form action="login/index.php" method="post" id="guestlogin" class="mb-4">
+        <button type="submit" class="btn-link">
+            <svg class="icon me-1" aria-hidden="true"><use href="theme/icons.svg#i-user"/></svg>
+            Log in as a guest
+        </button>
+        <input type="hidden" name="username" value="guest">
+        <input type="hidden" name="password" value="guest">
+    </form>
+
+    <p class="logininfo">You are not logged in.</p>
+    <p class="helplink">Forgotten your username or password?
+        <a href="login/forgot_password.php">Help</a></p>
+</div>
+
+<div class="cookie-notice" id="gc-cookie-notice" role="dialog" aria-live="polite">
+    <p>This site uses cookies to give you the best experience. Read our
+        <a href="policy/cookies.php">cookie policy</a>.</p>
+    <button class="btn btn-secondary btn-sm" id="gc-cookie-accept">Accept</button>
+</div>
+
+<footer id="page-footer" class="footer-popover bg-white">
+    <p class="logininfo">You are not logged in. (<a href="login/index.php">Log in</a>)</p>
+    <p>Powered by the Greenwood College learning platform &middot; <span id="gc-year"></span></p>
+</footer>
+
+<script src="theme/app.js"></script>
+</body>
+</html>

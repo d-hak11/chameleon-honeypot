@@ -1,0 +1,6 @@
+external-link
+language
+lock-open
+magnifying-glass
+question
+xmark

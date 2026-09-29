@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Greenwood Research Portal</title>
+    <meta name="keywords" content="greenwood, research, publications, projects">
+    <link rel="shortcut icon" href="favicon.svg">
+    <link rel="stylesheet" type="text/css" href="theme/styles.css">
+</head>
+<body id="page-research-home" class="path-home dir-ltr lang-en">
+
+<nav class="navbar" aria-label="Site navigation">
+    <button class="nav-toggle" data-gc-drawer-open aria-label="Open navigation">
+        <svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-home"/></svg>
+    </button>
+    <a class="navbar-brand" href="index.php">
+        <span class="brand-icon"><svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-cap"/></svg></span>
+        <span>Greenwood Research Portal</span>
+    </a>
+
+    <form class="simplesearchform" action="publications/search.php" method="get" autocomplete="off" onsubmit="return false;">
+        <input type="text" id="gc-course-search" class="form-control" name="q"
+               placeholder="Search publications" aria-label="Search publications" value="">
+        <button type="submit" class="btn-submit" title="Perform search">
+            <svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-search"/></svg>
+        </button>
+    </form>
+
+    <div class="navbar-spacer"></div>
+    <div class="usernavigation">
+        <a class="btn btn-primary btn-sm" href="login/index.php">
+            <svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-user"/></svg>
+            Log in
+        </a>
+    </div>
+</nav>
+
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a href="index.php">Home</a></li>
+        <li aria-current="page">Research</li>
+    </ol>
+
+    <div class="hero">
+        <h1>Greenwood Research Portal</h1>
+        <p>Discover our research: publications, projects and profiles. Staff sign
+            in to manage outputs, grant applications and research data.</p>
+    </div>
+
+    <h2 class="section-title">Explore research</h2>
+    <div class="card-grid">
+        <div class="card">
+            <span class="course-icon"><svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-book"/></svg></span>
+            <p class="coursecat">Outputs</p>
+            <h3 class="coursename"><a href="publications/index.php">Publications</a></h3>
+            <p class="course-description">Journal articles, conference papers and books.</p>
+        </div>
+        <div class="card">
+            <span class="course-icon"><svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-calendar"/></svg></span>
+            <p class="coursecat">Funding</p>
+            <h3 class="coursename"><a href="projects/index.php">Projects</a></h3>
+            <p class="course-description">Current and past research projects and grants.</p>
+        </div>
+        <div class="card">
+            <span class="course-icon"><svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-user"/></svg></span>
+            <p class="coursecat">People</p>
+            <h3 class="coursename"><a href="profiles/index.php">Researcher profiles</a></h3>
+            <p class="course-description">Find researchers by name, theme or department.</p>
+        </div>
+        <div class="card">
+            <span class="course-icon"><svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-book"/></svg></span>
+            <p class="coursecat">Data</p>
+            <h3 class="coursename"><a href="data/index.php">Research data</a></h3>
+            <p class="course-description">Deposit and discover datasets and metadata.</p>
+        </div>
+    </div>
+</div>
+
+<div class="cookie-notice" id="gc-cookie-notice" role="dialog" aria-live="polite">
+    <p>We use cookies to give you the best experience. Read our
+        <a href="policy/cookies.php">cookie policy</a>.</p>
+    <button class="btn btn-secondary btn-sm" id="gc-cookie-accept">Accept</button>
+</div>
+
+<footer id="page-footer" class="footer-popover bg-white">
+    <div class="footer-links">
+        <a href="index.php">Home</a>
+        <a href="publications/index.php">Publications</a>
+        <a href="projects/index.php">Projects</a>
+        <a href="profiles/index.php">Profiles</a>
+        <a href="login/forgot_password.php">Forgotten password</a>
+    </div>
+    <p class="logininfo">You are not logged in. (<a href="login/index.php">Log in</a>)</p>
+    <p>&copy; <span id="gc-year"></span> Greenwood Research Portal</p>
+</footer>
+
+<script src="theme/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,2015 @@
+# GENERATED FILE -- do not hand-edit. Produced by generation/expand_matrix.py
+# from the tool-configs already verified in run_manifest.yml (Stages 1-3,
+# 2b-2d). Regenerate with:
+#   python3 generation/expand_matrix.py --repetition 18 --probe-rate 0.3 --out generation/run_manifest_stage4.yml
+#
+# 10 base tool-configs x 4 network profiles x
+# 4 personas x 18 repetitions = 2880 sessions.
+# Matched-pair (nmap sweep/focused_deep, wget single/recursive -- content-
+# identical by construction within each pair, different class) share:
+# 1152/2880 (40.0%).
+#
+# probe_rate=0.3 for all entries -- Stage 4 turns the timing
+# probe on, per approval. See personas/*/manifest.yml for the timing ranges
+# this draws from.
+runs:
+- tool: nmap
+  tool_version: '7.94'
+  config_name: sweep_default
+  config_args: -sV -p 80,443,8080 --max-rtt-timeout 1000ms {target_host}
+  target_list_size: 1
+  timeout_budget: 60
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-nmap-sweep_default-near-moodle
+  network_profile: near
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: nmap
+  tool_version: '7.94'
+  config_name: sweep_default
+  config_args: -sV -p 80,443,8080 --max-rtt-timeout 1000ms {target_host}
+  target_list_size: 1
+  timeout_budget: 60
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-nmap-sweep_default-near-registry
+  network_profile: near
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: nmap
+  tool_version: '7.94'
+  config_name: sweep_default
+  config_args: -sV -p 80,443,8080 --max-rtt-timeout 1000ms {target_host}
+  target_list_size: 1
+  timeout_budget: 60
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-nmap-sweep_default-near-finance
+  network_profile: near
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: nmap
+  tool_version: '7.94'
+  config_name: sweep_default
+  config_args: -sV -p 80,443,8080 --max-rtt-timeout 1000ms {target_host}
+  target_list_size: 1
+  timeout_budget: 60
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-nmap-sweep_default-near-research
+  network_profile: near
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: nmap
+  tool_version: '7.94'
+  config_name: sweep_default
+  config_args: -sV -p 80,443,8080 --max-rtt-timeout 1000ms {target_host}
+  target_list_size: 1
+  timeout_budget: 60
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-nmap-sweep_default-mid-moodle
+  network_profile: mid
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: nmap
+  tool_version: '7.94'
+  config_name: sweep_default
+  config_args: -sV -p 80,443,8080 --max-rtt-timeout 1000ms {target_host}
+  target_list_size: 1
+  timeout_budget: 60
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-nmap-sweep_default-mid-registry
+  network_profile: mid
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: nmap
+  tool_version: '7.94'
+  config_name: sweep_default
+  config_args: -sV -p 80,443,8080 --max-rtt-timeout 1000ms {target_host}
+  target_list_size: 1
+  timeout_budget: 60
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-nmap-sweep_default-mid-finance
+  network_profile: mid
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: nmap
+  tool_version: '7.94'
+  config_name: sweep_default
+  config_args: -sV -p 80,443,8080 --max-rtt-timeout 1000ms {target_host}
+  target_list_size: 1
+  timeout_budget: 60
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-nmap-sweep_default-mid-research
+  network_profile: mid
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: nmap
+  tool_version: '7.94'
+  config_name: sweep_default
+  config_args: -sV -p 80,443,8080 --max-rtt-timeout 1000ms {target_host}
+  target_list_size: 1
+  timeout_budget: 60
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-nmap-sweep_default-far-moodle
+  network_profile: far
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: nmap
+  tool_version: '7.94'
+  config_name: sweep_default
+  config_args: -sV -p 80,443,8080 --max-rtt-timeout 1000ms {target_host}
+  target_list_size: 1
+  timeout_budget: 60
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-nmap-sweep_default-far-registry
+  network_profile: far
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: nmap
+  tool_version: '7.94'
+  config_name: sweep_default
+  config_args: -sV -p 80,443,8080 --max-rtt-timeout 1000ms {target_host}
+  target_list_size: 1
+  timeout_budget: 60
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-nmap-sweep_default-far-finance
+  network_profile: far
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: nmap
+  tool_version: '7.94'
+  config_name: sweep_default
+  config_args: -sV -p 80,443,8080 --max-rtt-timeout 1000ms {target_host}
+  target_list_size: 1
+  timeout_budget: 60
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-nmap-sweep_default-far-research
+  network_profile: far
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: nmap
+  tool_version: '7.94'
+  config_name: sweep_default
+  config_args: -sV -p 80,443,8080 --max-rtt-timeout 1000ms {target_host}
+  target_list_size: 1
+  timeout_budget: 60
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-nmap-sweep_default-lossy-moodle
+  network_profile: lossy
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: nmap
+  tool_version: '7.94'
+  config_name: sweep_default
+  config_args: -sV -p 80,443,8080 --max-rtt-timeout 1000ms {target_host}
+  target_list_size: 1
+  timeout_budget: 60
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-nmap-sweep_default-lossy-registry
+  network_profile: lossy
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: nmap
+  tool_version: '7.94'
+  config_name: sweep_default
+  config_args: -sV -p 80,443,8080 --max-rtt-timeout 1000ms {target_host}
+  target_list_size: 1
+  timeout_budget: 60
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-nmap-sweep_default-lossy-finance
+  network_profile: lossy
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: nmap
+  tool_version: '7.94'
+  config_name: sweep_default
+  config_args: -sV -p 80,443,8080 --max-rtt-timeout 1000ms {target_host}
+  target_list_size: 1
+  timeout_budget: 60
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-nmap-sweep_default-lossy-research
+  network_profile: lossy
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: nmap
+  tool_version: '7.94'
+  config_name: focused_deep
+  config_args: -sV -p 80 --version-intensity 2 --script=http-methods,http-trace,http-date
+    --script-args http-methods.test-all -T3 --max-retries 3 {target_host}
+  target_list_size: 1
+  timeout_budget: 90
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-nmap-focused_deep-near-moodle
+  network_profile: near
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: nmap
+  tool_version: '7.94'
+  config_name: focused_deep
+  config_args: -sV -p 80 --version-intensity 2 --script=http-methods,http-trace,http-date
+    --script-args http-methods.test-all -T3 --max-retries 3 {target_host}
+  target_list_size: 1
+  timeout_budget: 90
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-nmap-focused_deep-near-registry
+  network_profile: near
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: nmap
+  tool_version: '7.94'
+  config_name: focused_deep
+  config_args: -sV -p 80 --version-intensity 2 --script=http-methods,http-trace,http-date
+    --script-args http-methods.test-all -T3 --max-retries 3 {target_host}
+  target_list_size: 1
+  timeout_budget: 90
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-nmap-focused_deep-near-finance
+  network_profile: near
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: nmap
+  tool_version: '7.94'
+  config_name: focused_deep
+  config_args: -sV -p 80 --version-intensity 2 --script=http-methods,http-trace,http-date
+    --script-args http-methods.test-all -T3 --max-retries 3 {target_host}
+  target_list_size: 1
+  timeout_budget: 90
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-nmap-focused_deep-near-research
+  network_profile: near
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: nmap
+  tool_version: '7.94'
+  config_name: focused_deep
+  config_args: -sV -p 80 --version-intensity 2 --script=http-methods,http-trace,http-date
+    --script-args http-methods.test-all -T3 --max-retries 3 {target_host}
+  target_list_size: 1
+  timeout_budget: 90
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-nmap-focused_deep-mid-moodle
+  network_profile: mid
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: nmap
+  tool_version: '7.94'
+  config_name: focused_deep
+  config_args: -sV -p 80 --version-intensity 2 --script=http-methods,http-trace,http-date
+    --script-args http-methods.test-all -T3 --max-retries 3 {target_host}
+  target_list_size: 1
+  timeout_budget: 90
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-nmap-focused_deep-mid-registry
+  network_profile: mid
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: nmap
+  tool_version: '7.94'
+  config_name: focused_deep
+  config_args: -sV -p 80 --version-intensity 2 --script=http-methods,http-trace,http-date
+    --script-args http-methods.test-all -T3 --max-retries 3 {target_host}
+  target_list_size: 1
+  timeout_budget: 90
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-nmap-focused_deep-mid-finance
+  network_profile: mid
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: nmap
+  tool_version: '7.94'
+  config_name: focused_deep
+  config_args: -sV -p 80 --version-intensity 2 --script=http-methods,http-trace,http-date
+    --script-args http-methods.test-all -T3 --max-retries 3 {target_host}
+  target_list_size: 1
+  timeout_budget: 90
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-nmap-focused_deep-mid-research
+  network_profile: mid
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: nmap
+  tool_version: '7.94'
+  config_name: focused_deep
+  config_args: -sV -p 80 --version-intensity 2 --script=http-methods,http-trace,http-date
+    --script-args http-methods.test-all -T3 --max-retries 3 {target_host}
+  target_list_size: 1
+  timeout_budget: 90
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-nmap-focused_deep-far-moodle
+  network_profile: far
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: nmap
+  tool_version: '7.94'
+  config_name: focused_deep
+  config_args: -sV -p 80 --version-intensity 2 --script=http-methods,http-trace,http-date
+    --script-args http-methods.test-all -T3 --max-retries 3 {target_host}
+  target_list_size: 1
+  timeout_budget: 90
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-nmap-focused_deep-far-registry
+  network_profile: far
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: nmap
+  tool_version: '7.94'
+  config_name: focused_deep
+  config_args: -sV -p 80 --version-intensity 2 --script=http-methods,http-trace,http-date
+    --script-args http-methods.test-all -T3 --max-retries 3 {target_host}
+  target_list_size: 1
+  timeout_budget: 90
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-nmap-focused_deep-far-finance
+  network_profile: far
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: nmap
+  tool_version: '7.94'
+  config_name: focused_deep
+  config_args: -sV -p 80 --version-intensity 2 --script=http-methods,http-trace,http-date
+    --script-args http-methods.test-all -T3 --max-retries 3 {target_host}
+  target_list_size: 1
+  timeout_budget: 90
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-nmap-focused_deep-far-research
+  network_profile: far
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: nmap
+  tool_version: '7.94'
+  config_name: focused_deep
+  config_args: -sV -p 80 --version-intensity 2 --script=http-methods,http-trace,http-date
+    --script-args http-methods.test-all -T3 --max-retries 3 {target_host}
+  target_list_size: 1
+  timeout_budget: 90
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-nmap-focused_deep-lossy-moodle
+  network_profile: lossy
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: nmap
+  tool_version: '7.94'
+  config_name: focused_deep
+  config_args: -sV -p 80 --version-intensity 2 --script=http-methods,http-trace,http-date
+    --script-args http-methods.test-all -T3 --max-retries 3 {target_host}
+  target_list_size: 1
+  timeout_budget: 90
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-nmap-focused_deep-lossy-registry
+  network_profile: lossy
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: nmap
+  tool_version: '7.94'
+  config_name: focused_deep
+  config_args: -sV -p 80 --version-intensity 2 --script=http-methods,http-trace,http-date
+    --script-args http-methods.test-all -T3 --max-retries 3 {target_host}
+  target_list_size: 1
+  timeout_budget: 90
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-nmap-focused_deep-lossy-finance
+  network_profile: lossy
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: nmap
+  tool_version: '7.94'
+  config_name: focused_deep
+  config_args: -sV -p 80 --version-intensity 2 --script=http-methods,http-trace,http-date
+    --script-args http-methods.test-all -T3 --max-retries 3 {target_host}
+  target_list_size: 1
+  timeout_budget: 90
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-nmap-focused_deep-lossy-research
+  network_profile: lossy
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: gobuster
+  tool_version: '3.5'
+  config_name: quick_tiny_wordlist
+  config_args: dir -u {target_url} -w /opt/attack/wordlists/tiny.txt -t 5 --timeout
+    5s
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: indexing
+  run_id: stage4-indexing-gobuster-quick_tiny_wordlist-near-moodle
+  network_profile: near
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: gobuster
+  tool_version: '3.5'
+  config_name: quick_tiny_wordlist
+  config_args: dir -u {target_url} -w /opt/attack/wordlists/tiny.txt -t 5 --timeout
+    5s
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: indexing
+  run_id: stage4-indexing-gobuster-quick_tiny_wordlist-near-registry
+  network_profile: near
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: gobuster
+  tool_version: '3.5'
+  config_name: quick_tiny_wordlist
+  config_args: dir -u {target_url} -w /opt/attack/wordlists/tiny.txt -t 5 --timeout
+    5s
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: indexing
+  run_id: stage4-indexing-gobuster-quick_tiny_wordlist-near-finance
+  network_profile: near
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: gobuster
+  tool_version: '3.5'
+  config_name: quick_tiny_wordlist
+  config_args: dir -u {target_url} -w /opt/attack/wordlists/tiny.txt -t 5 --timeout
+    5s
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: indexing
+  run_id: stage4-indexing-gobuster-quick_tiny_wordlist-near-research
+  network_profile: near
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: gobuster
+  tool_version: '3.5'
+  config_name: quick_tiny_wordlist
+  config_args: dir -u {target_url} -w /opt/attack/wordlists/tiny.txt -t 5 --timeout
+    5s
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: indexing
+  run_id: stage4-indexing-gobuster-quick_tiny_wordlist-mid-moodle
+  network_profile: mid
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: gobuster
+  tool_version: '3.5'
+  config_name: quick_tiny_wordlist
+  config_args: dir -u {target_url} -w /opt/attack/wordlists/tiny.txt -t 5 --timeout
+    5s
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: indexing
+  run_id: stage4-indexing-gobuster-quick_tiny_wordlist-mid-registry
+  network_profile: mid
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: gobuster
+  tool_version: '3.5'
+  config_name: quick_tiny_wordlist
+  config_args: dir -u {target_url} -w /opt/attack/wordlists/tiny.txt -t 5 --timeout
+    5s
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: indexing
+  run_id: stage4-indexing-gobuster-quick_tiny_wordlist-mid-finance
+  network_profile: mid
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: gobuster
+  tool_version: '3.5'
+  config_name: quick_tiny_wordlist
+  config_args: dir -u {target_url} -w /opt/attack/wordlists/tiny.txt -t 5 --timeout
+    5s
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: indexing
+  run_id: stage4-indexing-gobuster-quick_tiny_wordlist-mid-research
+  network_profile: mid
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: gobuster
+  tool_version: '3.5'
+  config_name: quick_tiny_wordlist
+  config_args: dir -u {target_url} -w /opt/attack/wordlists/tiny.txt -t 5 --timeout
+    5s
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: indexing
+  run_id: stage4-indexing-gobuster-quick_tiny_wordlist-far-moodle
+  network_profile: far
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: gobuster
+  tool_version: '3.5'
+  config_name: quick_tiny_wordlist
+  config_args: dir -u {target_url} -w /opt/attack/wordlists/tiny.txt -t 5 --timeout
+    5s
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: indexing
+  run_id: stage4-indexing-gobuster-quick_tiny_wordlist-far-registry
+  network_profile: far
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: gobuster
+  tool_version: '3.5'
+  config_name: quick_tiny_wordlist
+  config_args: dir -u {target_url} -w /opt/attack/wordlists/tiny.txt -t 5 --timeout
+    5s
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: indexing
+  run_id: stage4-indexing-gobuster-quick_tiny_wordlist-far-finance
+  network_profile: far
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: gobuster
+  tool_version: '3.5'
+  config_name: quick_tiny_wordlist
+  config_args: dir -u {target_url} -w /opt/attack/wordlists/tiny.txt -t 5 --timeout
+    5s
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: indexing
+  run_id: stage4-indexing-gobuster-quick_tiny_wordlist-far-research
+  network_profile: far
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: gobuster
+  tool_version: '3.5'
+  config_name: quick_tiny_wordlist
+  config_args: dir -u {target_url} -w /opt/attack/wordlists/tiny.txt -t 5 --timeout
+    5s
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: indexing
+  run_id: stage4-indexing-gobuster-quick_tiny_wordlist-lossy-moodle
+  network_profile: lossy
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: gobuster
+  tool_version: '3.5'
+  config_name: quick_tiny_wordlist
+  config_args: dir -u {target_url} -w /opt/attack/wordlists/tiny.txt -t 5 --timeout
+    5s
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: indexing
+  run_id: stage4-indexing-gobuster-quick_tiny_wordlist-lossy-registry
+  network_profile: lossy
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: gobuster
+  tool_version: '3.5'
+  config_name: quick_tiny_wordlist
+  config_args: dir -u {target_url} -w /opt/attack/wordlists/tiny.txt -t 5 --timeout
+    5s
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: indexing
+  run_id: stage4-indexing-gobuster-quick_tiny_wordlist-lossy-finance
+  network_profile: lossy
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: gobuster
+  tool_version: '3.5'
+  config_name: quick_tiny_wordlist
+  config_args: dir -u {target_url} -w /opt/attack/wordlists/tiny.txt -t 5 --timeout
+    5s
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: indexing
+  run_id: stage4-indexing-gobuster-quick_tiny_wordlist-lossy-research
+  network_profile: lossy
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: gobuster
+  tool_version: '3.5'
+  config_name: full_common_wordlist
+  config_args: dir -u {target_url} -w /usr/share/dirb/wordlists/common.txt -t 20 --timeout
+    5s
+  target_list_size: 1
+  timeout_budget: 60
+  behaviour_class: indexing
+  run_id: stage4-indexing-gobuster-full_common_wordlist-near-moodle
+  network_profile: near
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: gobuster
+  tool_version: '3.5'
+  config_name: full_common_wordlist
+  config_args: dir -u {target_url} -w /usr/share/dirb/wordlists/common.txt -t 20 --timeout
+    5s
+  target_list_size: 1
+  timeout_budget: 60
+  behaviour_class: indexing
+  run_id: stage4-indexing-gobuster-full_common_wordlist-near-registry
+  network_profile: near
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: gobuster
+  tool_version: '3.5'
+  config_name: full_common_wordlist
+  config_args: dir -u {target_url} -w /usr/share/dirb/wordlists/common.txt -t 20 --timeout
+    5s
+  target_list_size: 1
+  timeout_budget: 60
+  behaviour_class: indexing
+  run_id: stage4-indexing-gobuster-full_common_wordlist-near-finance
+  network_profile: near
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: gobuster
+  tool_version: '3.5'
+  config_name: full_common_wordlist
+  config_args: dir -u {target_url} -w /usr/share/dirb/wordlists/common.txt -t 20 --timeout
+    5s
+  target_list_size: 1
+  timeout_budget: 60
+  behaviour_class: indexing
+  run_id: stage4-indexing-gobuster-full_common_wordlist-near-research
+  network_profile: near
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: gobuster
+  tool_version: '3.5'
+  config_name: full_common_wordlist
+  config_args: dir -u {target_url} -w /usr/share/dirb/wordlists/common.txt -t 20 --timeout
+    5s
+  target_list_size: 1
+  timeout_budget: 60
+  behaviour_class: indexing
+  run_id: stage4-indexing-gobuster-full_common_wordlist-mid-moodle
+  network_profile: mid
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: gobuster
+  tool_version: '3.5'
+  config_name: full_common_wordlist
+  config_args: dir -u {target_url} -w /usr/share/dirb/wordlists/common.txt -t 20 --timeout
+    5s
+  target_list_size: 1
+  timeout_budget: 60
+  behaviour_class: indexing
+  run_id: stage4-indexing-gobuster-full_common_wordlist-mid-registry
+  network_profile: mid
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: gobuster
+  tool_version: '3.5'
+  config_name: full_common_wordlist
+  config_args: dir -u {target_url} -w /usr/share/dirb/wordlists/common.txt -t 20 --timeout
+    5s
+  target_list_size: 1
+  timeout_budget: 60
+  behaviour_class: indexing
+  run_id: stage4-indexing-gobuster-full_common_wordlist-mid-finance
+  network_profile: mid
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: gobuster
+  tool_version: '3.5'
+  config_name: full_common_wordlist
+  config_args: dir -u {target_url} -w /usr/share/dirb/wordlists/common.txt -t 20 --timeout
+    5s
+  target_list_size: 1
+  timeout_budget: 60
+  behaviour_class: indexing
+  run_id: stage4-indexing-gobuster-full_common_wordlist-mid-research
+  network_profile: mid
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: gobuster
+  tool_version: '3.5'
+  config_name: full_common_wordlist
+  config_args: dir -u {target_url} -w /usr/share/dirb/wordlists/common.txt -t 20 --timeout
+    5s
+  target_list_size: 1
+  timeout_budget: 60
+  behaviour_class: indexing
+  run_id: stage4-indexing-gobuster-full_common_wordlist-far-moodle
+  network_profile: far
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: gobuster
+  tool_version: '3.5'
+  config_name: full_common_wordlist
+  config_args: dir -u {target_url} -w /usr/share/dirb/wordlists/common.txt -t 20 --timeout
+    5s
+  target_list_size: 1
+  timeout_budget: 60
+  behaviour_class: indexing
+  run_id: stage4-indexing-gobuster-full_common_wordlist-far-registry
+  network_profile: far
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: gobuster
+  tool_version: '3.5'
+  config_name: full_common_wordlist
+  config_args: dir -u {target_url} -w /usr/share/dirb/wordlists/common.txt -t 20 --timeout
+    5s
+  target_list_size: 1
+  timeout_budget: 60
+  behaviour_class: indexing
+  run_id: stage4-indexing-gobuster-full_common_wordlist-far-finance
+  network_profile: far
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: gobuster
+  tool_version: '3.5'
+  config_name: full_common_wordlist
+  config_args: dir -u {target_url} -w /usr/share/dirb/wordlists/common.txt -t 20 --timeout
+    5s
+  target_list_size: 1
+  timeout_budget: 60
+  behaviour_class: indexing
+  run_id: stage4-indexing-gobuster-full_common_wordlist-far-research
+  network_profile: far
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: gobuster
+  tool_version: '3.5'
+  config_name: full_common_wordlist
+  config_args: dir -u {target_url} -w /usr/share/dirb/wordlists/common.txt -t 20 --timeout
+    5s
+  target_list_size: 1
+  timeout_budget: 60
+  behaviour_class: indexing
+  run_id: stage4-indexing-gobuster-full_common_wordlist-lossy-moodle
+  network_profile: lossy
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: gobuster
+  tool_version: '3.5'
+  config_name: full_common_wordlist
+  config_args: dir -u {target_url} -w /usr/share/dirb/wordlists/common.txt -t 20 --timeout
+    5s
+  target_list_size: 1
+  timeout_budget: 60
+  behaviour_class: indexing
+  run_id: stage4-indexing-gobuster-full_common_wordlist-lossy-registry
+  network_profile: lossy
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: gobuster
+  tool_version: '3.5'
+  config_name: full_common_wordlist
+  config_args: dir -u {target_url} -w /usr/share/dirb/wordlists/common.txt -t 20 --timeout
+    5s
+  target_list_size: 1
+  timeout_budget: 60
+  behaviour_class: indexing
+  run_id: stage4-indexing-gobuster-full_common_wordlist-lossy-finance
+  network_profile: lossy
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: gobuster
+  tool_version: '3.5'
+  config_name: full_common_wordlist
+  config_args: dir -u {target_url} -w /usr/share/dirb/wordlists/common.txt -t 20 --timeout
+    5s
+  target_list_size: 1
+  timeout_budget: 60
+  behaviour_class: indexing
+  run_id: stage4-indexing-gobuster-full_common_wordlist-lossy-research
+  network_profile: lossy
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: wget
+  tool_version: 1.21.3
+  config_name: single_fetch
+  config_args: -q -O /dev/null --timeout=3 {target_url}
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-wget-single_fetch-near-moodle
+  network_profile: near
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: wget
+  tool_version: 1.21.3
+  config_name: single_fetch
+  config_args: -q -O /dev/null --timeout=3 {target_url}
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-wget-single_fetch-near-registry
+  network_profile: near
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: wget
+  tool_version: 1.21.3
+  config_name: single_fetch
+  config_args: -q -O /dev/null --timeout=3 {target_url}
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-wget-single_fetch-near-finance
+  network_profile: near
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: wget
+  tool_version: 1.21.3
+  config_name: single_fetch
+  config_args: -q -O /dev/null --timeout=3 {target_url}
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-wget-single_fetch-near-research
+  network_profile: near
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: wget
+  tool_version: 1.21.3
+  config_name: single_fetch
+  config_args: -q -O /dev/null --timeout=3 {target_url}
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-wget-single_fetch-mid-moodle
+  network_profile: mid
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: wget
+  tool_version: 1.21.3
+  config_name: single_fetch
+  config_args: -q -O /dev/null --timeout=3 {target_url}
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-wget-single_fetch-mid-registry
+  network_profile: mid
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: wget
+  tool_version: 1.21.3
+  config_name: single_fetch
+  config_args: -q -O /dev/null --timeout=3 {target_url}
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-wget-single_fetch-mid-finance
+  network_profile: mid
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: wget
+  tool_version: 1.21.3
+  config_name: single_fetch
+  config_args: -q -O /dev/null --timeout=3 {target_url}
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-wget-single_fetch-mid-research
+  network_profile: mid
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: wget
+  tool_version: 1.21.3
+  config_name: single_fetch
+  config_args: -q -O /dev/null --timeout=3 {target_url}
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-wget-single_fetch-far-moodle
+  network_profile: far
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: wget
+  tool_version: 1.21.3
+  config_name: single_fetch
+  config_args: -q -O /dev/null --timeout=3 {target_url}
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-wget-single_fetch-far-registry
+  network_profile: far
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: wget
+  tool_version: 1.21.3
+  config_name: single_fetch
+  config_args: -q -O /dev/null --timeout=3 {target_url}
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-wget-single_fetch-far-finance
+  network_profile: far
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: wget
+  tool_version: 1.21.3
+  config_name: single_fetch
+  config_args: -q -O /dev/null --timeout=3 {target_url}
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-wget-single_fetch-far-research
+  network_profile: far
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: wget
+  tool_version: 1.21.3
+  config_name: single_fetch
+  config_args: -q -O /dev/null --timeout=3 {target_url}
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-wget-single_fetch-lossy-moodle
+  network_profile: lossy
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: wget
+  tool_version: 1.21.3
+  config_name: single_fetch
+  config_args: -q -O /dev/null --timeout=3 {target_url}
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-wget-single_fetch-lossy-registry
+  network_profile: lossy
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: wget
+  tool_version: 1.21.3
+  config_name: single_fetch
+  config_args: -q -O /dev/null --timeout=3 {target_url}
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-wget-single_fetch-lossy-finance
+  network_profile: lossy
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: wget
+  tool_version: 1.21.3
+  config_name: single_fetch
+  config_args: -q -O /dev/null --timeout=3 {target_url}
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-wget-single_fetch-lossy-research
+  network_profile: lossy
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: wget
+  tool_version: 1.21.3
+  config_name: recursive_robots_off
+  config_args: -r -l 2 -e robots=off -np -nv --delete-after --timeout=5 {target_url}
+  target_list_size: 1
+  timeout_budget: 45
+  behaviour_class: indexing
+  run_id: stage4-indexing-wget-recursive_robots_off-near-moodle
+  network_profile: near
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: wget
+  tool_version: 1.21.3
+  config_name: recursive_robots_off
+  config_args: -r -l 2 -e robots=off -np -nv --delete-after --timeout=5 {target_url}
+  target_list_size: 1
+  timeout_budget: 45
+  behaviour_class: indexing
+  run_id: stage4-indexing-wget-recursive_robots_off-near-registry
+  network_profile: near
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: wget
+  tool_version: 1.21.3
+  config_name: recursive_robots_off
+  config_args: -r -l 2 -e robots=off -np -nv --delete-after --timeout=5 {target_url}
+  target_list_size: 1
+  timeout_budget: 45
+  behaviour_class: indexing
+  run_id: stage4-indexing-wget-recursive_robots_off-near-finance
+  network_profile: near
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: wget
+  tool_version: 1.21.3
+  config_name: recursive_robots_off
+  config_args: -r -l 2 -e robots=off -np -nv --delete-after --timeout=5 {target_url}
+  target_list_size: 1
+  timeout_budget: 45
+  behaviour_class: indexing
+  run_id: stage4-indexing-wget-recursive_robots_off-near-research
+  network_profile: near
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: wget
+  tool_version: 1.21.3
+  config_name: recursive_robots_off
+  config_args: -r -l 2 -e robots=off -np -nv --delete-after --timeout=5 {target_url}
+  target_list_size: 1
+  timeout_budget: 45
+  behaviour_class: indexing
+  run_id: stage4-indexing-wget-recursive_robots_off-mid-moodle
+  network_profile: mid
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: wget
+  tool_version: 1.21.3
+  config_name: recursive_robots_off
+  config_args: -r -l 2 -e robots=off -np -nv --delete-after --timeout=5 {target_url}
+  target_list_size: 1
+  timeout_budget: 45
+  behaviour_class: indexing
+  run_id: stage4-indexing-wget-recursive_robots_off-mid-registry
+  network_profile: mid
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: wget
+  tool_version: 1.21.3
+  config_name: recursive_robots_off
+  config_args: -r -l 2 -e robots=off -np -nv --delete-after --timeout=5 {target_url}
+  target_list_size: 1
+  timeout_budget: 45
+  behaviour_class: indexing
+  run_id: stage4-indexing-wget-recursive_robots_off-mid-finance
+  network_profile: mid
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: wget
+  tool_version: 1.21.3
+  config_name: recursive_robots_off
+  config_args: -r -l 2 -e robots=off -np -nv --delete-after --timeout=5 {target_url}
+  target_list_size: 1
+  timeout_budget: 45
+  behaviour_class: indexing
+  run_id: stage4-indexing-wget-recursive_robots_off-mid-research
+  network_profile: mid
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: wget
+  tool_version: 1.21.3
+  config_name: recursive_robots_off
+  config_args: -r -l 2 -e robots=off -np -nv --delete-after --timeout=5 {target_url}
+  target_list_size: 1
+  timeout_budget: 45
+  behaviour_class: indexing
+  run_id: stage4-indexing-wget-recursive_robots_off-far-moodle
+  network_profile: far
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: wget
+  tool_version: 1.21.3
+  config_name: recursive_robots_off
+  config_args: -r -l 2 -e robots=off -np -nv --delete-after --timeout=5 {target_url}
+  target_list_size: 1
+  timeout_budget: 45
+  behaviour_class: indexing
+  run_id: stage4-indexing-wget-recursive_robots_off-far-registry
+  network_profile: far
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: wget
+  tool_version: 1.21.3
+  config_name: recursive_robots_off
+  config_args: -r -l 2 -e robots=off -np -nv --delete-after --timeout=5 {target_url}
+  target_list_size: 1
+  timeout_budget: 45
+  behaviour_class: indexing
+  run_id: stage4-indexing-wget-recursive_robots_off-far-finance
+  network_profile: far
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: wget
+  tool_version: 1.21.3
+  config_name: recursive_robots_off
+  config_args: -r -l 2 -e robots=off -np -nv --delete-after --timeout=5 {target_url}
+  target_list_size: 1
+  timeout_budget: 45
+  behaviour_class: indexing
+  run_id: stage4-indexing-wget-recursive_robots_off-far-research
+  network_profile: far
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: wget
+  tool_version: 1.21.3
+  config_name: recursive_robots_off
+  config_args: -r -l 2 -e robots=off -np -nv --delete-after --timeout=5 {target_url}
+  target_list_size: 1
+  timeout_budget: 45
+  behaviour_class: indexing
+  run_id: stage4-indexing-wget-recursive_robots_off-lossy-moodle
+  network_profile: lossy
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: wget
+  tool_version: 1.21.3
+  config_name: recursive_robots_off
+  config_args: -r -l 2 -e robots=off -np -nv --delete-after --timeout=5 {target_url}
+  target_list_size: 1
+  timeout_budget: 45
+  behaviour_class: indexing
+  run_id: stage4-indexing-wget-recursive_robots_off-lossy-registry
+  network_profile: lossy
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: wget
+  tool_version: 1.21.3
+  config_name: recursive_robots_off
+  config_args: -r -l 2 -e robots=off -np -nv --delete-after --timeout=5 {target_url}
+  target_list_size: 1
+  timeout_budget: 45
+  behaviour_class: indexing
+  run_id: stage4-indexing-wget-recursive_robots_off-lossy-finance
+  network_profile: lossy
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: wget
+  tool_version: 1.21.3
+  config_name: recursive_robots_off
+  config_args: -r -l 2 -e robots=off -np -nv --delete-after --timeout=5 {target_url}
+  target_list_size: 1
+  timeout_budget: 45
+  behaviour_class: indexing
+  run_id: stage4-indexing-wget-recursive_robots_off-lossy-research
+  network_profile: lossy
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: sqlmap
+  tool_version: 1.7.2
+  config_name: injection_test
+  config_args: -u {target_url}/login/index.php?id=1 --batch --level=1 --timeout=20
+  target_list_size: 1
+  timeout_budget: 45
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-sqlmap-injection_test-near-moodle
+  network_profile: near
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: sqlmap
+  tool_version: 1.7.2
+  config_name: injection_test
+  config_args: -u {target_url}/login/index.php?id=1 --batch --level=1 --timeout=20
+  target_list_size: 1
+  timeout_budget: 45
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-sqlmap-injection_test-near-registry
+  network_profile: near
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: sqlmap
+  tool_version: 1.7.2
+  config_name: injection_test
+  config_args: -u {target_url}/login/index.php?id=1 --batch --level=1 --timeout=20
+  target_list_size: 1
+  timeout_budget: 45
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-sqlmap-injection_test-near-finance
+  network_profile: near
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: sqlmap
+  tool_version: 1.7.2
+  config_name: injection_test
+  config_args: -u {target_url}/login/index.php?id=1 --batch --level=1 --timeout=20
+  target_list_size: 1
+  timeout_budget: 45
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-sqlmap-injection_test-near-research
+  network_profile: near
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: sqlmap
+  tool_version: 1.7.2
+  config_name: injection_test
+  config_args: -u {target_url}/login/index.php?id=1 --batch --level=1 --timeout=20
+  target_list_size: 1
+  timeout_budget: 45
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-sqlmap-injection_test-mid-moodle
+  network_profile: mid
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: sqlmap
+  tool_version: 1.7.2
+  config_name: injection_test
+  config_args: -u {target_url}/login/index.php?id=1 --batch --level=1 --timeout=20
+  target_list_size: 1
+  timeout_budget: 45
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-sqlmap-injection_test-mid-registry
+  network_profile: mid
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: sqlmap
+  tool_version: 1.7.2
+  config_name: injection_test
+  config_args: -u {target_url}/login/index.php?id=1 --batch --level=1 --timeout=20
+  target_list_size: 1
+  timeout_budget: 45
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-sqlmap-injection_test-mid-finance
+  network_profile: mid
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: sqlmap
+  tool_version: 1.7.2
+  config_name: injection_test
+  config_args: -u {target_url}/login/index.php?id=1 --batch --level=1 --timeout=20
+  target_list_size: 1
+  timeout_budget: 45
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-sqlmap-injection_test-mid-research
+  network_profile: mid
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: sqlmap
+  tool_version: 1.7.2
+  config_name: injection_test
+  config_args: -u {target_url}/login/index.php?id=1 --batch --level=1 --timeout=20
+  target_list_size: 1
+  timeout_budget: 45
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-sqlmap-injection_test-far-moodle
+  network_profile: far
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: sqlmap
+  tool_version: 1.7.2
+  config_name: injection_test
+  config_args: -u {target_url}/login/index.php?id=1 --batch --level=1 --timeout=20
+  target_list_size: 1
+  timeout_budget: 45
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-sqlmap-injection_test-far-registry
+  network_profile: far
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: sqlmap
+  tool_version: 1.7.2
+  config_name: injection_test
+  config_args: -u {target_url}/login/index.php?id=1 --batch --level=1 --timeout=20
+  target_list_size: 1
+  timeout_budget: 45
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-sqlmap-injection_test-far-finance
+  network_profile: far
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: sqlmap
+  tool_version: 1.7.2
+  config_name: injection_test
+  config_args: -u {target_url}/login/index.php?id=1 --batch --level=1 --timeout=20
+  target_list_size: 1
+  timeout_budget: 45
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-sqlmap-injection_test-far-research
+  network_profile: far
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: sqlmap
+  tool_version: 1.7.2
+  config_name: injection_test
+  config_args: -u {target_url}/login/index.php?id=1 --batch --level=1 --timeout=20
+  target_list_size: 1
+  timeout_budget: 45
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-sqlmap-injection_test-lossy-moodle
+  network_profile: lossy
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: sqlmap
+  tool_version: 1.7.2
+  config_name: injection_test
+  config_args: -u {target_url}/login/index.php?id=1 --batch --level=1 --timeout=20
+  target_list_size: 1
+  timeout_budget: 45
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-sqlmap-injection_test-lossy-registry
+  network_profile: lossy
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: sqlmap
+  tool_version: 1.7.2
+  config_name: injection_test
+  config_args: -u {target_url}/login/index.php?id=1 --batch --level=1 --timeout=20
+  target_list_size: 1
+  timeout_budget: 45
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-sqlmap-injection_test-lossy-finance
+  network_profile: lossy
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: sqlmap
+  tool_version: 1.7.2
+  config_name: injection_test
+  config_args: -u {target_url}/login/index.php?id=1 --batch --level=1 --timeout=20
+  target_list_size: 1
+  timeout_budget: 45
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-sqlmap-injection_test-lossy-research
+  network_profile: lossy
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: curl
+  tool_version: 8.5.0
+  config_name: single_probe
+  config_args: -s -o /dev/null -w %{http_code} --connect-timeout 3 --max-time 3 {target_url}/
+  target_list_size: 1
+  timeout_budget: 15
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-curl-single_probe-near-moodle
+  network_profile: near
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: curl
+  tool_version: 8.5.0
+  config_name: single_probe
+  config_args: -s -o /dev/null -w %{http_code} --connect-timeout 3 --max-time 3 {target_url}/
+  target_list_size: 1
+  timeout_budget: 15
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-curl-single_probe-near-registry
+  network_profile: near
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: curl
+  tool_version: 8.5.0
+  config_name: single_probe
+  config_args: -s -o /dev/null -w %{http_code} --connect-timeout 3 --max-time 3 {target_url}/
+  target_list_size: 1
+  timeout_budget: 15
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-curl-single_probe-near-finance
+  network_profile: near
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: curl
+  tool_version: 8.5.0
+  config_name: single_probe
+  config_args: -s -o /dev/null -w %{http_code} --connect-timeout 3 --max-time 3 {target_url}/
+  target_list_size: 1
+  timeout_budget: 15
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-curl-single_probe-near-research
+  network_profile: near
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: curl
+  tool_version: 8.5.0
+  config_name: single_probe
+  config_args: -s -o /dev/null -w %{http_code} --connect-timeout 3 --max-time 3 {target_url}/
+  target_list_size: 1
+  timeout_budget: 15
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-curl-single_probe-mid-moodle
+  network_profile: mid
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: curl
+  tool_version: 8.5.0
+  config_name: single_probe
+  config_args: -s -o /dev/null -w %{http_code} --connect-timeout 3 --max-time 3 {target_url}/
+  target_list_size: 1
+  timeout_budget: 15
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-curl-single_probe-mid-registry
+  network_profile: mid
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: curl
+  tool_version: 8.5.0
+  config_name: single_probe
+  config_args: -s -o /dev/null -w %{http_code} --connect-timeout 3 --max-time 3 {target_url}/
+  target_list_size: 1
+  timeout_budget: 15
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-curl-single_probe-mid-finance
+  network_profile: mid
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: curl
+  tool_version: 8.5.0
+  config_name: single_probe
+  config_args: -s -o /dev/null -w %{http_code} --connect-timeout 3 --max-time 3 {target_url}/
+  target_list_size: 1
+  timeout_budget: 15
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-curl-single_probe-mid-research
+  network_profile: mid
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: curl
+  tool_version: 8.5.0
+  config_name: single_probe
+  config_args: -s -o /dev/null -w %{http_code} --connect-timeout 3 --max-time 3 {target_url}/
+  target_list_size: 1
+  timeout_budget: 15
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-curl-single_probe-far-moodle
+  network_profile: far
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: curl
+  tool_version: 8.5.0
+  config_name: single_probe
+  config_args: -s -o /dev/null -w %{http_code} --connect-timeout 3 --max-time 3 {target_url}/
+  target_list_size: 1
+  timeout_budget: 15
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-curl-single_probe-far-registry
+  network_profile: far
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: curl
+  tool_version: 8.5.0
+  config_name: single_probe
+  config_args: -s -o /dev/null -w %{http_code} --connect-timeout 3 --max-time 3 {target_url}/
+  target_list_size: 1
+  timeout_budget: 15
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-curl-single_probe-far-finance
+  network_profile: far
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: curl
+  tool_version: 8.5.0
+  config_name: single_probe
+  config_args: -s -o /dev/null -w %{http_code} --connect-timeout 3 --max-time 3 {target_url}/
+  target_list_size: 1
+  timeout_budget: 15
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-curl-single_probe-far-research
+  network_profile: far
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: curl
+  tool_version: 8.5.0
+  config_name: single_probe
+  config_args: -s -o /dev/null -w %{http_code} --connect-timeout 3 --max-time 3 {target_url}/
+  target_list_size: 1
+  timeout_budget: 15
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-curl-single_probe-lossy-moodle
+  network_profile: lossy
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: curl
+  tool_version: 8.5.0
+  config_name: single_probe
+  config_args: -s -o /dev/null -w %{http_code} --connect-timeout 3 --max-time 3 {target_url}/
+  target_list_size: 1
+  timeout_budget: 15
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-curl-single_probe-lossy-registry
+  network_profile: lossy
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: curl
+  tool_version: 8.5.0
+  config_name: single_probe
+  config_args: -s -o /dev/null -w %{http_code} --connect-timeout 3 --max-time 3 {target_url}/
+  target_list_size: 1
+  timeout_budget: 15
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-curl-single_probe-lossy-finance
+  network_profile: lossy
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: curl
+  tool_version: 8.5.0
+  config_name: single_probe
+  config_args: -s -o /dev/null -w %{http_code} --connect-timeout 3 --max-time 3 {target_url}/
+  target_list_size: 1
+  timeout_budget: 15
+  behaviour_class: broad_scanning
+  run_id: stage4-broad_scanning-curl-single_probe-lossy-research
+  network_profile: lossy
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: sh
+  tool_version: n/a (shell loop; see config_name)
+  config_name: repeated_single_endpoint
+  config_args: -c 'i=1; while [ "$i" -le 40 ]; do curl -s -o /dev/null --max-time
+    8 {target_url}/login/index.php?id=$i; i=$((i+1)); done'
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-sh-repeated_single_endpoint-near-moodle
+  network_profile: near
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: sh
+  tool_version: n/a (shell loop; see config_name)
+  config_name: repeated_single_endpoint
+  config_args: -c 'i=1; while [ "$i" -le 40 ]; do curl -s -o /dev/null --max-time
+    8 {target_url}/login/index.php?id=$i; i=$((i+1)); done'
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-sh-repeated_single_endpoint-near-registry
+  network_profile: near
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: sh
+  tool_version: n/a (shell loop; see config_name)
+  config_name: repeated_single_endpoint
+  config_args: -c 'i=1; while [ "$i" -le 40 ]; do curl -s -o /dev/null --max-time
+    8 {target_url}/login/index.php?id=$i; i=$((i+1)); done'
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-sh-repeated_single_endpoint-near-finance
+  network_profile: near
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: sh
+  tool_version: n/a (shell loop; see config_name)
+  config_name: repeated_single_endpoint
+  config_args: -c 'i=1; while [ "$i" -le 40 ]; do curl -s -o /dev/null --max-time
+    8 {target_url}/login/index.php?id=$i; i=$((i+1)); done'
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-sh-repeated_single_endpoint-near-research
+  network_profile: near
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: sh
+  tool_version: n/a (shell loop; see config_name)
+  config_name: repeated_single_endpoint
+  config_args: -c 'i=1; while [ "$i" -le 40 ]; do curl -s -o /dev/null --max-time
+    8 {target_url}/login/index.php?id=$i; i=$((i+1)); done'
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-sh-repeated_single_endpoint-mid-moodle
+  network_profile: mid
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: sh
+  tool_version: n/a (shell loop; see config_name)
+  config_name: repeated_single_endpoint
+  config_args: -c 'i=1; while [ "$i" -le 40 ]; do curl -s -o /dev/null --max-time
+    8 {target_url}/login/index.php?id=$i; i=$((i+1)); done'
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-sh-repeated_single_endpoint-mid-registry
+  network_profile: mid
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: sh
+  tool_version: n/a (shell loop; see config_name)
+  config_name: repeated_single_endpoint
+  config_args: -c 'i=1; while [ "$i" -le 40 ]; do curl -s -o /dev/null --max-time
+    8 {target_url}/login/index.php?id=$i; i=$((i+1)); done'
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-sh-repeated_single_endpoint-mid-finance
+  network_profile: mid
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: sh
+  tool_version: n/a (shell loop; see config_name)
+  config_name: repeated_single_endpoint
+  config_args: -c 'i=1; while [ "$i" -le 40 ]; do curl -s -o /dev/null --max-time
+    8 {target_url}/login/index.php?id=$i; i=$((i+1)); done'
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-sh-repeated_single_endpoint-mid-research
+  network_profile: mid
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: sh
+  tool_version: n/a (shell loop; see config_name)
+  config_name: repeated_single_endpoint
+  config_args: -c 'i=1; while [ "$i" -le 40 ]; do curl -s -o /dev/null --max-time
+    8 {target_url}/login/index.php?id=$i; i=$((i+1)); done'
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-sh-repeated_single_endpoint-far-moodle
+  network_profile: far
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: sh
+  tool_version: n/a (shell loop; see config_name)
+  config_name: repeated_single_endpoint
+  config_args: -c 'i=1; while [ "$i" -le 40 ]; do curl -s -o /dev/null --max-time
+    8 {target_url}/login/index.php?id=$i; i=$((i+1)); done'
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-sh-repeated_single_endpoint-far-registry
+  network_profile: far
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: sh
+  tool_version: n/a (shell loop; see config_name)
+  config_name: repeated_single_endpoint
+  config_args: -c 'i=1; while [ "$i" -le 40 ]; do curl -s -o /dev/null --max-time
+    8 {target_url}/login/index.php?id=$i; i=$((i+1)); done'
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-sh-repeated_single_endpoint-far-finance
+  network_profile: far
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: sh
+  tool_version: n/a (shell loop; see config_name)
+  config_name: repeated_single_endpoint
+  config_args: -c 'i=1; while [ "$i" -le 40 ]; do curl -s -o /dev/null --max-time
+    8 {target_url}/login/index.php?id=$i; i=$((i+1)); done'
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-sh-repeated_single_endpoint-far-research
+  network_profile: far
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: sh
+  tool_version: n/a (shell loop; see config_name)
+  config_name: repeated_single_endpoint
+  config_args: -c 'i=1; while [ "$i" -le 40 ]; do curl -s -o /dev/null --max-time
+    8 {target_url}/login/index.php?id=$i; i=$((i+1)); done'
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-sh-repeated_single_endpoint-lossy-moodle
+  network_profile: lossy
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: sh
+  tool_version: n/a (shell loop; see config_name)
+  config_name: repeated_single_endpoint
+  config_args: -c 'i=1; while [ "$i" -le 40 ]; do curl -s -o /dev/null --max-time
+    8 {target_url}/login/index.php?id=$i; i=$((i+1)); done'
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-sh-repeated_single_endpoint-lossy-registry
+  network_profile: lossy
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: sh
+  tool_version: n/a (shell loop; see config_name)
+  config_name: repeated_single_endpoint
+  config_args: -c 'i=1; while [ "$i" -le 40 ]; do curl -s -o /dev/null --max-time
+    8 {target_url}/login/index.php?id=$i; i=$((i+1)); done'
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-sh-repeated_single_endpoint-lossy-finance
+  network_profile: lossy
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: sh
+  tool_version: n/a (shell loop; see config_name)
+  config_name: repeated_single_endpoint
+  config_args: -c 'i=1; while [ "$i" -le 40 ]; do curl -s -o /dev/null --max-time
+    8 {target_url}/login/index.php?id=$i; i=$((i+1)); done'
+  target_list_size: 1
+  timeout_budget: 30
+  behaviour_class: active_backend_testing
+  run_id: stage4-active_backend_testing-sh-repeated_single_endpoint-lossy-research
+  network_profile: lossy
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: nikto
+  tool_version: 2.5.0
+  config_name: enumeration_mode
+  config_args: -h {target_host} -p 80 -nointeractive -Tuning 123 -maxtime 45 -timeout
+    5
+  target_list_size: 1
+  timeout_budget: 75
+  behaviour_class: indexing
+  run_id: stage4-indexing-nikto-enumeration_mode-near-moodle
+  network_profile: near
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: nikto
+  tool_version: 2.5.0
+  config_name: enumeration_mode
+  config_args: -h {target_host} -p 80 -nointeractive -Tuning 123 -maxtime 45 -timeout
+    5
+  target_list_size: 1
+  timeout_budget: 75
+  behaviour_class: indexing
+  run_id: stage4-indexing-nikto-enumeration_mode-near-registry
+  network_profile: near
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: nikto
+  tool_version: 2.5.0
+  config_name: enumeration_mode
+  config_args: -h {target_host} -p 80 -nointeractive -Tuning 123 -maxtime 45 -timeout
+    5
+  target_list_size: 1
+  timeout_budget: 75
+  behaviour_class: indexing
+  run_id: stage4-indexing-nikto-enumeration_mode-near-finance
+  network_profile: near
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: nikto
+  tool_version: 2.5.0
+  config_name: enumeration_mode
+  config_args: -h {target_host} -p 80 -nointeractive -Tuning 123 -maxtime 45 -timeout
+    5
+  target_list_size: 1
+  timeout_budget: 75
+  behaviour_class: indexing
+  run_id: stage4-indexing-nikto-enumeration_mode-near-research
+  network_profile: near
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: nikto
+  tool_version: 2.5.0
+  config_name: enumeration_mode
+  config_args: -h {target_host} -p 80 -nointeractive -Tuning 123 -maxtime 45 -timeout
+    5
+  target_list_size: 1
+  timeout_budget: 75
+  behaviour_class: indexing
+  run_id: stage4-indexing-nikto-enumeration_mode-mid-moodle
+  network_profile: mid
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: nikto
+  tool_version: 2.5.0
+  config_name: enumeration_mode
+  config_args: -h {target_host} -p 80 -nointeractive -Tuning 123 -maxtime 45 -timeout
+    5
+  target_list_size: 1
+  timeout_budget: 75
+  behaviour_class: indexing
+  run_id: stage4-indexing-nikto-enumeration_mode-mid-registry
+  network_profile: mid
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: nikto
+  tool_version: 2.5.0
+  config_name: enumeration_mode
+  config_args: -h {target_host} -p 80 -nointeractive -Tuning 123 -maxtime 45 -timeout
+    5
+  target_list_size: 1
+  timeout_budget: 75
+  behaviour_class: indexing
+  run_id: stage4-indexing-nikto-enumeration_mode-mid-finance
+  network_profile: mid
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: nikto
+  tool_version: 2.5.0
+  config_name: enumeration_mode
+  config_args: -h {target_host} -p 80 -nointeractive -Tuning 123 -maxtime 45 -timeout
+    5
+  target_list_size: 1
+  timeout_budget: 75
+  behaviour_class: indexing
+  run_id: stage4-indexing-nikto-enumeration_mode-mid-research
+  network_profile: mid
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: nikto
+  tool_version: 2.5.0
+  config_name: enumeration_mode
+  config_args: -h {target_host} -p 80 -nointeractive -Tuning 123 -maxtime 45 -timeout
+    5
+  target_list_size: 1
+  timeout_budget: 75
+  behaviour_class: indexing
+  run_id: stage4-indexing-nikto-enumeration_mode-far-moodle
+  network_profile: far
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: nikto
+  tool_version: 2.5.0
+  config_name: enumeration_mode
+  config_args: -h {target_host} -p 80 -nointeractive -Tuning 123 -maxtime 45 -timeout
+    5
+  target_list_size: 1
+  timeout_budget: 75
+  behaviour_class: indexing
+  run_id: stage4-indexing-nikto-enumeration_mode-far-registry
+  network_profile: far
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: nikto
+  tool_version: 2.5.0
+  config_name: enumeration_mode
+  config_args: -h {target_host} -p 80 -nointeractive -Tuning 123 -maxtime 45 -timeout
+    5
+  target_list_size: 1
+  timeout_budget: 75
+  behaviour_class: indexing
+  run_id: stage4-indexing-nikto-enumeration_mode-far-finance
+  network_profile: far
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: nikto
+  tool_version: 2.5.0
+  config_name: enumeration_mode
+  config_args: -h {target_host} -p 80 -nointeractive -Tuning 123 -maxtime 45 -timeout
+    5
+  target_list_size: 1
+  timeout_budget: 75
+  behaviour_class: indexing
+  run_id: stage4-indexing-nikto-enumeration_mode-far-research
+  network_profile: far
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18
+- tool: nikto
+  tool_version: 2.5.0
+  config_name: enumeration_mode
+  config_args: -h {target_host} -p 80 -nointeractive -Tuning 123 -maxtime 45 -timeout
+    5
+  target_list_size: 1
+  timeout_budget: 75
+  behaviour_class: indexing
+  run_id: stage4-indexing-nikto-enumeration_mode-lossy-moodle
+  network_profile: lossy
+  active_persona: moodle
+  probe_rate: 0.3
+  repetition: 18
+- tool: nikto
+  tool_version: 2.5.0
+  config_name: enumeration_mode
+  config_args: -h {target_host} -p 80 -nointeractive -Tuning 123 -maxtime 45 -timeout
+    5
+  target_list_size: 1
+  timeout_budget: 75
+  behaviour_class: indexing
+  run_id: stage4-indexing-nikto-enumeration_mode-lossy-registry
+  network_profile: lossy
+  active_persona: registry
+  probe_rate: 0.3
+  repetition: 18
+- tool: nikto
+  tool_version: 2.5.0
+  config_name: enumeration_mode
+  config_args: -h {target_host} -p 80 -nointeractive -Tuning 123 -maxtime 45 -timeout
+    5
+  target_list_size: 1
+  timeout_budget: 75
+  behaviour_class: indexing
+  run_id: stage4-indexing-nikto-enumeration_mode-lossy-finance
+  network_profile: lossy
+  active_persona: finance
+  probe_rate: 0.3
+  repetition: 18
+- tool: nikto
+  tool_version: 2.5.0
+  config_name: enumeration_mode
+  config_args: -h {target_host} -p 80 -nointeractive -Tuning 123 -maxtime 45 -timeout
+    5
+  target_list_size: 1
+  timeout_budget: 75
+  behaviour_class: indexing
+  run_id: stage4-indexing-nikto-enumeration_mode-lossy-research
+  network_profile: lossy
+  active_persona: research
+  probe_rate: 0.3
+  repetition: 18

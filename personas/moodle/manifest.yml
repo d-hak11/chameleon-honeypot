@@ -1,0 +1,86 @@
+# Timing block read by the proxy's timing_probe Caddy module
+# (proxy/timingprobe/) to pick a delay range for held responses.
+#
+# MEASURED, not invented. Captured with tools/observe_timing.sh, which
+# records server-side think time rather than total request time:
+#
+#     server_think = time_starttransfer - time_appconnect
+#
+# i.e. the interval after the TLS handshake completes and before the first
+# response byte. Total request time would also contain the network path from
+# the observing machine, which is a property of where we happened to be
+# sitting, not of Moodle -- calibrating on that would have baked our own
+# broadband connection into the honeypot.
+#
+# INTERSECTION METHOD: four independent Moodle deployments were measured.
+# Their absolute levels differ widely (median 69 ms at Heriot-Watt vs 217 ms
+# at UCLouvain) and that spread is institutional -- hosting, hardware, DB
+# size, current load. What is common across all four is the band and shape:
+# every instance sits in the 65-285 ms server-think range, with p95 modestly
+# above median and p99 showing occasional spikes. The values below are the
+# median across instances, which is the Moodle signature with per-institution
+# identity discarded.
+#
+# NOTE: these replace earlier placeholder values of p95=450 / p99=900, which
+# were roughly 4x too slow. A probe delay outside the persona's real range is
+# itself a fingerprint, which is precisely why this had to be measured.
+timing:
+  min_ms: 107
+  median_ms: 112
+  p95_ms: 134
+  p99_ms: 187
+  stdev_ms: 17
+  verified: true
+
+observation:
+  date: 2026-09-06
+  tool: tools/observe_timing.sh
+  samples_per_instance: 20
+  metric: server_think (time_starttransfer - time_appconnect)
+  sources:
+    - host: sandbox405.moodledemo.net
+      median_ms: 80.2
+      p95_ms: 110.2
+      p99_ms: 214.1
+    - host: moodle.uclouvain.be
+      median_ms: 217.4
+      p95_ms: 279.1
+      p99_ms: 284.5
+    - host: elearning.unimib.it
+      median_ms: 144.1
+      p95_ms: 157.5
+      p99_ms: 159.1
+    - host: moodle.hw.ac.uk
+      median_ms: 69.4
+      p95_ms: 80.0
+      p99_ms: 80.7
+
+# Phase 8 honeytraps (proxy/traps/). Verified against a real reference where
+# claimed: the login page's real hidden `anchor` field (see
+# personas/moodle/static/login.html) and the real `/admin/` robots.txt
+# disallow entry (personas/moodle/static/robots.txt) both exist on the
+# actual Moodle codebase. `mnethostid` and `MOODLEID1` were both proposed and
+# REJECTED after checking sandbox405.moodledemo.net directly (2026-09-15):
+# neither appeared on a plain GET of the real login page, and MOODLEID1 only
+# ever gets set after an authenticated POST, which this project's own
+# observation ethics (see observe.sh/observe_timing.sh) do not permit. The
+# tamper-field trap reuses the real `anchor` field instead of inventing one;
+# the cookie trap (MOODLE_PREF) is an invented, generic preference cookie,
+# not presented as a verified Moodle-specific mechanism.
+traps:
+  admin_login_path: /admin/index.php   # resolves the existing real
+                                        # `Disallow: /admin/` robots.txt entry
+  weak_username: admin
+  weak_password: admin123
+  tamper_check_path: /login/index.php
+  tamper_field_name: anchor            # real field, normally posted empty
+  cookie_name: MOODLE_PREF
+  cookie_default_value: light
+  # DEVELOPMENT DEFAULT ONLY -- this file is tracked in git, so anyone
+  # with the repository can forge a valid cookie and evade this trap.
+  # A real deployment sets CHAMELEON_TRAP_SECRET (`make trap-secret`),
+  # which proxy/traps prefers and which also recomputes the MAC nginx
+  # issues in this persona's conf/nginx.conf. The two must rotate
+  # together: a secret without a matching MAC makes every untouched
+  # client look like it tampered with the cookie.
+  cookie_secret: CHANGE-ME-run-make-trap-secret

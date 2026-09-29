@@ -1,0 +1,24 @@
+# Network profiles applied via `tc qdisc ... netem` on the attacker
+# container's own interface before each run (generate.py). See
+# attack/docs/DESIGN_NOTES.md (Phase 6): loopback RTT (~0.05ms) is nothing like
+# real internet RTT (10-150ms with jitter), and the whole timing-probe
+# ablation depends on training data that doesn't only work over a lab-clean
+# path. Four profiles, not one, so the timing features can be shown to hold
+# across conditions rather than only in the easiest one.
+profiles:
+  near:
+    delay_ms: 5
+    jitter_ms: 2
+    loss_pct: 0.0
+  mid:
+    delay_ms: 40
+    jitter_ms: 10
+    loss_pct: 0.05
+  far:
+    delay_ms: 120
+    jitter_ms: 30
+    loss_pct: 0.5
+  lossy:
+    delay_ms: 60
+    jitter_ms: 15
+    loss_pct: 3.0

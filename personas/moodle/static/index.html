@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Greenwood College</title>
+    <meta name="keywords" content="moodle, Greenwood College, courses">
+    <link rel="shortcut icon" href="favicon.svg">
+    <link rel="stylesheet" type="text/css" href="theme/styles.css">
+</head>
+<body id="page-site-index" class="path-site dir-ltr lang-en">
+
+<a class="skip-link" href="#region-main">Skip to main content</a>
+
+<nav class="navbar" aria-label="Site navigation">
+    <button class="nav-toggle" data-gc-drawer-open aria-label="Open navigation">
+        <svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-home"/></svg>
+    </button>
+    <a class="navbar-brand" href="index.php">
+        <span class="brand-icon"><svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-cap"/></svg></span>
+        <span>Greenwood College</span>
+    </a>
+
+    <form class="simplesearchform" action="course/search.php" method="get" autocomplete="off" onsubmit="return false;">
+        <input type="text" id="gc-course-search" class="form-control" name="q"
+               placeholder="Search courses" aria-label="Search courses" data-region="input" value="">
+        <button type="submit" class="btn-submit" title="Perform search">
+            <svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-search"/></svg>
+            <span class="visually-hidden">Perform search</span>
+        </button>
+    </form>
+
+    <div class="navbar-spacer"></div>
+
+    <div class="usernavigation">
+        <div class="dropdown">
+            <a href="#" class="langbutton" id="gc-lang-toggle" aria-haspopup="true" aria-expanded="false">
+                <svg class="icon me-1" aria-hidden="true"><use href="theme/icons.svg#i-language"/></svg>
+                English&nbsp;(en)
+                <svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-chevron-down"/></svg>
+            </a>
+            <div class="dropdown-menu" id="gc-lang-menu" role="menu">
+                <a href="#" role="menuitem">English (en)</a>
+                <a href="#" role="menuitem">Français (fr)</a>
+                <a href="#" role="menuitem">Deutsch (de)</a>
+            </div>
+        </div>
+        <a class="btn btn-primary btn-sm" href="login/index.php">
+            <svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-user"/></svg>
+            Log in
+        </a>
+    </div>
+</nav>
+
+<div class="drawer-overlay" id="gc-drawer-overlay"></div>
+<aside class="drawer" id="gc-drawer" aria-hidden="true" aria-label="Site">
+    <div class="drawer-head">
+        <span>Site</span>
+        <button class="drawer-close" data-gc-drawer-close aria-label="Close navigation">
+            <svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-xmark"/></svg>
+        </button>
+    </div>
+    <nav>
+        <a href="index.php" class="active"><svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-home"/></svg> Site home</a>
+        <a href="my/"><svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-user"/></svg> Dashboard</a>
+        <a href="course/index.php"><svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-book"/></svg> My courses</a>
+        <a href="calendar/index.php"><svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-calendar"/></svg> Calendar</a>
+        <a href="site/news.php"><svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-question"/></svg> Site news</a>
+    </nav>
+</aside>
+
+<div class="container" id="region-main">
+    <ol class="breadcrumb">
+        <li><a href="index.php">Home</a></li>
+        <li aria-current="page">Available courses</li>
+    </ol>
+
+    <div class="hero">
+        <h1>Welcome to Greenwood College</h1>
+        <p>Find and enrol in the courses offered at this college. Log in to see your
+            enrolments, grades and progress.</p>
+    </div>
+
+    <h2 class="section-title">Available courses</h2>
+
+    <div class="card-grid default-courses" id="gc-course-grid">
+        <div class="card coursebox" data-courseid="2">
+            <span class="course-icon"><svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-book"/></svg></span>
+            <p class="coursecat">Computing</p>
+            <h3 class="coursename"><a href="course/view.php?id=2">Introduction to Computing</a></h3>
+            <p class="course-description">Foundations of hardware, software and the basics of programming.</p>
+            <p class="course-meta">Self-paced &middot; 12 weeks</p>
+            <a class="btn btn-primary btn-sm" href="login/index.php" data-gc-enrol>Enrol</a>
+        </div>
+
+        <div class="card coursebox" data-courseid="3">
+            <span class="course-icon"><svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-book"/></svg></span>
+            <p class="coursecat">Computing</p>
+            <h3 class="coursename"><a href="course/view.php?id=3">Data Structures and Algorithms</a></h3>
+            <p class="course-description">How data is organised and processed efficiently.</p>
+            <p class="course-meta">Self-paced &middot; 14 weeks</p>
+            <a class="btn btn-primary btn-sm" href="login/index.php" data-gc-enrol>Enrol</a>
+        </div>
+
+        <div class="card coursebox" data-courseid="4">
+            <span class="course-icon"><svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-book"/></svg></span>
+            <p class="coursecat">Mathematics</p>
+            <h3 class="coursename"><a href="course/view.php?id=4">Foundations of Mathematics</a></h3>
+            <p class="course-description">Core ideas in algebra, geometry and problem solving.</p>
+            <p class="course-meta">Self-paced &middot; 10 weeks</p>
+            <a class="btn btn-primary btn-sm" href="login/index.php" data-gc-enrol>Enrol</a>
+        </div>
+
+        <div class="card coursebox" data-courseid="5">
+            <span class="course-icon"><svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-book"/></svg></span>
+            <p class="coursecat">Languages</p>
+            <h3 class="coursename"><a href="course/view.php?id=5">Academic Writing Skills</a></h3>
+            <p class="course-description">Structure essays, cite sources and write clearly.</p>
+            <p class="course-meta">Self-paced &middot; 8 weeks</p>
+            <a class="btn btn-primary btn-sm" href="login/index.php" data-gc-enrol>Enrol</a>
+        </div>
+
+        <div class="card coursebox" data-courseid="6">
+            <span class="course-icon"><svg class="icon" aria-hidden="true"><use href="theme/icons.svg#i-book"/></svg></span>
+            <p class="coursecat">Business</p>
+            <h3 class="coursename"><a href="course/view.php?id=6">Business Foundations</a></h3>
+            <p class="course-description">An introduction to organisations, management and markets.</p>
+            <p class="course-meta">Self-paced &middot; 12 weeks</p>
+            <a class="btn btn-primary btn-sm" href="login/index.php" data-gc-enrol>Enrol</a>
+        </div>
+    </div>
+
+    <p id="gc-no-courses" style="display:none; color:#6c757d; margin-top:1rem;">
+        No courses match your search.
+    </p>
+</div>
+
+<div class="cookie-notice" id="gc-cookie-notice" role="dialog" aria-live="polite">
+    <p>This site uses cookies to give you the best experience. Read our
+        <a href="policy/cookies.php">cookie policy</a>.</p>
+    <button class="btn btn-secondary btn-sm" id="gc-cookie-accept">Accept</button>
+</div>
+
+<footer id="page-footer" class="footer-popover bg-white">
+    <div class="footer-links">
+        <a href="index.php">Home</a>
+        <a href="course/index.php">Courses</a>
+        <a href="calendar/index.php">Calendar</a>
+        <a href="site/news.php">News</a>
+        <a href="login/forgot_password.php">Forgotten password</a>
+    </div>
+    <p class="logininfo">You are not logged in. (<a href="login/index.php">Log in</a>)</p>
+    <p>Powered by the Greenwood College learning platform &middot; <span id="gc-year"></span></p>
+</footer>
+
+<script src="theme/app.js"></script>
+</body>
+</html>
+

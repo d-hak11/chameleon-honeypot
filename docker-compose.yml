@@ -1,0 +1,118 @@
+services:
+  moodle:
+    image: nginx:alpine
+    restart: unless-stopped
+    volumes:
+      - ./personas/moodle/static:/usr/share/nginx/html/static:ro
+      - ./personas/moodle/conf/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+
+  registry:
+    image: nginx:alpine
+    restart: unless-stopped
+    volumes:
+      - ./personas/registry/static:/usr/share/nginx/html/static:ro
+      - ./personas/registry/conf/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+
+  finance:
+    image: nginx:alpine
+    restart: unless-stopped
+    volumes:
+      - ./personas/finance/static:/usr/share/nginx/html/static:ro
+      - ./personas/finance/conf/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+
+  research:
+    image: nginx:alpine
+    restart: unless-stopped
+    volumes:
+      - ./personas/research/static:/usr/share/nginx/html/static:ro
+      - ./personas/research/conf/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+
+  proxy:
+    build: ./proxy
+    image: chameleon-proxy:latest
+    restart: unless-stopped
+    entrypoint: ["caddy", "run", "--config", "/etc/caddy/caddy.json"]
+    ports:
+      # Production sets HTTP_PORT=80 / HTTPS_PORT=443 (see terraform user_data).
+      # Local dev keeps 8080/8443 so it needs no privileged ports and does not
+      # collide with anything already bound on the workstation.
+      - "${HTTP_PORT:-8080}:80"
+      - "${HTTPS_PORT:-8443}:443"
+    # The pseudonymisation salt is injected, never baked into an image or
+    # committed: proxy/caddy.json is tracked in git, so the salt must not
+    # live there. Generate with `make salt`.
+    env_file:
+      - ./secrets/source_salt.env
+      # Honeytrap cookie HMAC secret. Optional: proxy/traps falls back to
+      # the development default committed in each persona manifest and
+      # warns when it does. Generate with `make trap-secret`, which also
+      # recomputes the MACs nginx issues -- the two must rotate together,
+      # or untouched traffic gets recorded as fake_cookie_tampered.
+      - path: ./secrets/trap_secret.env
+        required: false
+    volumes:
+      - ./proxy/caddy.json:/etc/caddy/caddy.json:ro
+      - ./personas:/etc/chameleon/personas:ro
+      - caddy-logs:/var/log/caddy
+    depends_on:
+      - moodle
+
+  engine:
+    image: python:3-alpine
+    restart: unless-stopped
+    entrypoint: ["python", "/app/main.py"]
+    working_dir: /app
+    volumes:
+      - ./engine:/app:ro
+      # READ-ONLY seed. The engine used to mount this read-write and rewrite
+      # it on every rotation, which dirtied the git working tree and made
+      # captured rotations indistinguishable from intentional config edits.
+      # It is now copied once to the runtime path below and never written.
+      - ./proxy/caddy.json:/etc/chameleon/caddy.json:ro
+      - caddy-logs:/var/log/caddy:ro
+      # Decisions log, session state, and the mutable Caddy config are
+      # research data, restart continuity, and runtime state respectively --
+      # all three belong on the volume, not in the repo or the container's
+      # /tmp (where the first two were originally lost on any recreate).
+      - engine-state:/var/lib/chameleon
+    environment:
+      - CADDY_ADMIN_URL=http://proxy:2019
+      - CADDY_CONFIG=/var/lib/chameleon/caddy-active.json
+      - CADDY_SEED_CONFIG=/etc/chameleon/caddy.json
+      - ACCESS_LOG=/var/log/caddy/access.json
+      - DECISIONS_LOG=/var/lib/chameleon/decisions.jsonl
+      - STATE_FILE=/var/lib/chameleon/engine-state.json
+      # Exclude our own infrastructure by category, not by a literal gateway
+      # address that goes stale when Docker allocates a different subnet.
+      # Production sets true; local dev must be false, because there all
+      # traffic (host curl, attacker container) is private and would
+      # otherwise be ignored entirely.
+      - EXCLUDE_PRIVATE=${EXCLUDE_PRIVATE:-false}
+    depends_on:
+      - proxy
+      - moodle
+      - registry
+      - finance
+      - research
+
+  attacker:
+    build: ./attack
+    image: chameleon-attacker:latest
+    # Profile-gated: `docker compose up -d` must NEVER start scanner tooling
+    # on a live, internet-exposed honeypot. Local use:
+    #   docker compose --profile attack run --rm attacker ./fast-probes.sh
+    profiles:
+      - attack
+    environment:
+      - TARGET=http://proxy:80
+    # NET_ADMIN is required for `tc qdisc` (Phase 6 generation/generate.py
+    # applies network-profile shaping -- delay/jitter/loss -- on this
+    # container's own interface before each run). It is scoped to this
+    # profile-gated, never-in-production container only.
+    cap_add:
+      - NET_ADMIN
+    # No ports — internal network only.
+
+volumes:
+  caddy-logs:
+  engine-state:

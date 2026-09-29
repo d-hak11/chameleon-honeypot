@@ -1,0 +1,55 @@
+# Timing block read by the proxy's timing_probe Caddy module. See
+# personas/moodle/manifest.yml for the method.
+#
+# NOT VERIFIED. The reference application for this persona is a student-records system (Banner, SITS, Campus Solutions),
+# which is proprietary and licence-gated behind authentication, so there is no public instance to point
+# tools/observe_timing.sh at -- the same reason this persona's *content* is a
+# designed construction rather than a capture (see the root README.md).
+#
+# These values are DERIVED, not measured: they are anchored to the measured
+# Moodle band (personas/moodle/manifest.yml, four instances, 2026-09-06)
+# because a server-rendered authenticated enterprise portal sits in the same
+# order of magnitude as Moodle. They deliberately no longer use the original
+# invented figures, which measurement showed to be ~4x too slow.
+#
+# Phase 6 generation must not run against unverified timing: a delay drawn
+# from an invented range is baked into every labelled row.
+timing:
+  min_ms: 115
+  median_ms: 125
+  p95_ms: 150
+  p99_ms: 205
+  stdev_ms: 20
+  verified: false
+
+observation:
+  date: null
+  tool: null
+  sources: []
+  derived_from: personas/moodle/manifest.yml (2026-09-06 measurement)
+
+# Phase 8 honeytraps (proxy/traps/). This persona is a designed construction,
+# not a capture (see the root README.md), so trap identifiers are invented in the
+# same spirit as the rest of its content -- not presented as verified
+# against a real reference instance.
+traps:
+  admin_login_path: /admin/index.php   # standardized across all 4 personas
+                                        # (see moodle's manifest) so the
+                                        # Caddy route matcher is persona-
+                                        # independent and needs no update on
+                                        # rotation. Resolves the existing
+                                        # `Disallow: /admin/` robots.txt entry
+  weak_username: admin
+  weak_password: changeme123
+  tamper_check_path: /login/index.php
+  tamper_field_name: relaystate        # invented; plausible generic SSO field
+  cookie_name: pref_theme
+  cookie_default_value: light
+  # DEVELOPMENT DEFAULT ONLY -- this file is tracked in git, so anyone
+  # with the repository can forge a valid cookie and evade this trap.
+  # A real deployment sets CHAMELEON_TRAP_SECRET (`make trap-secret`),
+  # which proxy/traps prefers and which also recomputes the MAC nginx
+  # issues in this persona's conf/nginx.conf. The two must rotate
+  # together: a secret without a matching MAC makes every untouched
+  # client look like it tampered with the cookie.
+  cookie_secret: CHANGE-ME-run-make-trap-secret

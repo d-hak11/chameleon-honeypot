@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original font-awesome-style icon sprite for the Greenwood College persona. -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none"
+     aria-hidden="true" focusable="false">
+  <defs>
+    <!-- user -->
+    <symbol id="i-user" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm0 2c-4 0-8 2-8 5.5V20h16v-1.5C20 15 16 13 12 13Z"/>
+    </symbol>
+    <!-- magnifying-glass / search -->
+    <symbol id="i-search" viewBox="0 0 24 24">
+      <circle cx="10.8" cy="10.8" r="6" fill="none" stroke="currentColor" stroke-width="2"/>
+      <path d="M15.4 15.4 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </symbol>
+    <!-- home -->
+    <symbol id="i-home" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"
+            d="M3.5 10.5 12 3.5l8.5 7V19a1.5 1.5 0 0 1-1.5 1.5h-4.5v-5h-5v5H5A1.5 1.5 0 0 1 3.5 19Z"/>
+    </symbol>
+    <!-- graduation-cap (generic; not Moodle's logo) -->
+    <symbol id="i-cap" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 3 1.9 7.4 12 11.8l8.1-3.6V16h2V7.4L12 3Zm-7.6 9v4.4c.2 2.4 4.2 4.1 7.6 4.1s7.4-1.7 7.6-4.1V12l-4.6 2-3 1.3a2 2 0 0 1-1.8 0L4.4 14Z"/>
+    </symbol>
+    <!-- book -->
+    <symbol id="i-book" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"
+            d="M12 5.5C10 4 6 3.8 3.5 4.5V19c2.5-.7 6.5-.5 8.5 1 2-1.5 6-1.7 8.5-1V4.5C18 3.8 14 4 12 5.5Z"/>
+      <path d="M12 5.5V20" fill="none" stroke="currentColor" stroke-width="2"/>
+    </symbol>
+    <!-- gear -->
+    <symbol id="i-gear" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 8.2a3.8 3.8 0 1 0 0 7.6 3.8 3.8 0 0 0 0-7.6Z"/>
+      <path fill="currentColor" d="M19 13.4v-2.8l-2-.7a6.7 6.7 0 0 0-.6-1.4l.9-1.9-2-2-1.9.9c-.5-.3-1-.5-1.5-.6L11.4 3H8.6l-.5 1.9c-.5.1-1 .3-1.5.6l-1.9-.9-2 2 .9 1.9c-.3.4-.5.9-.6 1.4l-2 .7v2.8l2 .7c.1.5.3 1 .6 1.4l-.9 1.9 2 2 1.9-.9c.5.3 1 .5 1.5.6l.5 2h2.8l.5-2c.5-.1 1-.3 1.5-.6l1.9.9 2-2-.9-1.9c.3-.4.5-1 .6-1.4l2-.7ZM7 12a5 5 0 0 1 10 0 5 5 0 0 1-10 0Z"/>
+    </symbol>
+    <!-- calendar -->
+    <symbol id="i-calendar" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"
+            d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5V19a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 19Z"/>
+      <path d="M8 2.5v3M16 2.5v3M4 9h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </symbol>
+    <!-- lock-open -->
+    <symbol id="i-lock-open" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"
+            d="M7 11V7a5 5 0 0 1 9.7-2M5.5 11h13l1.5 9.5h-16Z"/>
+    </symbol>
+    <!-- language -->
+    <symbol id="i-language" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2"/>
+      <path fill="none" stroke="currentColor" stroke-width="2"
+            d="M3.5 12h17M12 3.5c2.2 2.4 3.3 5.2 3.3 8.5S14.2 18.1 12 20.5C9.8 18.1 8.7 15.3 8.7 12S9.8 5.9 12 3.5Z"/>
+    </symbol>
+    <!-- chat/question -->
+    <symbol id="i-question" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"
+            d="M12 3a9 9 0 0 0-7.6 13.7L3 21l4.4-1.3A9 9 0 1 0 12 3Z"/>
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            d="M12 16.5v.5M9.8 9.5a2.3 2.3 0 1 1 3 2.2c-.7.3-1 .8-1 1.6"/>
+    </symbol>
+    <!-- xmark / close -->
+    <symbol id="i-xmark" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+            d="m6 6 12 12M18 6 6 18"/>
+    </symbol>
+    <!-- chevron-down -->
+    <symbol id="i-chevron-down" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            d="m6 9 6 6 6-6"/>
+    </symbol>
+    <!-- door / course enter -->
+    <symbol id="i-door" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"
+            d="M4 21V4.5A1.5 1.5 0 0 1 5.5 3h13A1.5 1.5 0 0 1 20 4.5V21Z"/>
+      <circle cx="14.5" cy="11.5" r="1.4" fill="currentColor"/>
+      <path d="M20 12h1.5m-1.5 0h1.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </symbol>
+    <!-- external-link -->
+    <symbol id="i-external-link" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            d="M14 4h6v6M20 4l-9 9"/>
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            d="M19 14v4.5A1.5 1.5 0 0 1 17.5 20h-12A1.5 1.5 0 0 1 4 18.5v-12A1.5 1.5 0 0 1 5.5 5H10"/>
+    </symbol>
+  </defs>
+</svg>

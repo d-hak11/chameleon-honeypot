@@ -1,0 +1,27 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /backup/
+Disallow: /cache/
+Disallow: /calendar/export/
+Disallow: /comment/
+Disallow: /cohort/index.php
+Disallow: /course/editsection.php
+Disallow: /enrol/
+Disallow: /grade/import/
+Disallow: /grade/export/
+Disallow: /login/token.php
+Disallow: /message/
+Disallow: /notes/
+Disallow: /question/
+Allow: /blog/
+Allow: /course/index.php
+Allow: /course/info.php
+Allow: /course/view.php
+Allow: /mod/
+Allow: /user/profile.php?id=2
+
+# Standard search-engine guidance used by Moodle sites so that
+# public course catalogues remain indexable while admin and
+# management areas are excluded.
+Sitemap: /sitemap.xml

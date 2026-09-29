@@ -1,0 +1,80 @@
+# Timing block read by the proxy's timing_probe Caddy module. See
+# personas/moodle/manifest.yml for the method (server_think isolated from
+# network path via tools/observe_timing.sh).
+#
+# MEASURED. Four public Pure research portals, 20 samples each, all HTTP 200.
+#
+# The population split cleanly in two, which matters more than the averages:
+#
+#   origin-served     pure.qub.ac.uk            median 201.8  p95 275.0  p99 305.0
+#                     research.manchester.ac.uk median 188.0  p95 298.8  p99 468.0
+#
+#   edge-cached       research.rug.nl           median  22.1  p95  35.2  p99  57.6
+#                     researchportal.bath.ac.uk median  23.9  p95  52.5  p99  56.4
+#
+# The fast pair is an order of magnitude quicker with very low variance --
+# that is a CDN edge answering, not the Pure application thinking. Averaging
+# all four would have produced a figure describing neither.
+#
+# The honeypot has no CDN in front of it: Caddy proxies straight to an nginx
+# origin. So the origin-served pair is the correct reference and the
+# edge-cached pair is excluded as institutional infrastructure -- the same
+# discard the intersection method makes for hosting and load.
+#
+# Caveat to state when writing this up: after that exclusion the sample is
+# n=2 instances, weaker than moodle's n=4. The two agree closely on median
+# and p95 and diverge at p99 (305 vs 468), which is why p99 below sits
+# between them rather than at either.
+timing:
+  min_ms: 164
+  median_ms: 195
+  p95_ms: 287
+  p99_ms: 387
+  stdev_ms: 55
+  verified: true
+
+observation:
+  date: 2026-09-07
+  tool: tools/observe_timing.sh
+  samples_per_instance: 20
+  metric: server_think (time_starttransfer - time_appconnect)
+  sources:
+    - host: pure.qub.ac.uk
+      median_ms: 201.8
+      p95_ms: 275.0
+      p99_ms: 305.0
+    - host: research.manchester.ac.uk
+      median_ms: 188.0
+      p95_ms: 298.8
+      p99_ms: 468.0
+  excluded:
+    - host: research.rug.nl
+      reason: CDN/edge-cached (median 22.1ms, sd 9.2) -- measures cache hit, not application
+    - host: researchportal.bath.ac.uk
+      reason: CDN/edge-cached (median 23.9ms, sd 9.9) -- measures cache hit, not application
+
+# Phase 8 honeytraps (proxy/traps/). This persona is a designed construction,
+# not a capture (see the root README.md), so trap identifiers are invented in the
+# same spirit as the rest of its content -- not presented as verified
+# against a real reference instance.
+traps:
+  admin_login_path: /admin/index.php   # standardized across all 4 personas
+                                        # (see moodle's manifest) so the
+                                        # Caddy route matcher is persona-
+                                        # independent and needs no update on
+                                        # rotation. Resolves the existing
+                                        # `Disallow: /admin/` robots.txt entry
+  weak_username: admin
+  weak_password: changeme123
+  tamper_check_path: /login/index.php
+  tamper_field_name: relaystate        # invented; plausible generic SSO field
+  cookie_name: pref_theme
+  cookie_default_value: light
+  # DEVELOPMENT DEFAULT ONLY -- this file is tracked in git, so anyone
+  # with the repository can forge a valid cookie and evade this trap.
+  # A real deployment sets CHAMELEON_TRAP_SECRET (`make trap-secret`),
+  # which proxy/traps prefers and which also recomputes the MAC nginx
+  # issues in this persona's conf/nginx.conf. The two must rotate
+  # together: a secret without a matching MAC makes every untouched
+  # client look like it tampered with the cookie.
+  cookie_secret: CHANGE-ME-run-make-trap-secret

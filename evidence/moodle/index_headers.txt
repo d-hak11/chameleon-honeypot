@@ -1,0 +1,16 @@
+HTTP/2 200 
+date: Sun, 16 Aug 2026 23:20:33 GMT
+content-type: text/html; charset=utf-8
+cache-control: no-store, no-cache, must-revalidate, no-transform
+content-language: en
+content-script-type: text/javascript
+content-style-type: text/css
+expires: Mon, 20 Aug 1969 09:23:00 GMT
+last-modified: Sun, 16 Aug 2026 23:20:33 GMT
+pragma: no-cache
+server: nginx
+set-cookie: MoodleSession=f9f45c6b831eb656ccdaa3e34568d2cb; path=/
+vary: Accept-Encoding
+x-frame-options: sameorigin
+x-ua-compatible: IE=edge
+

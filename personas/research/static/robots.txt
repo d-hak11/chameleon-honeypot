@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /login/
+Disallow: /help/
+Allow: /
+
+Sitemap: /sitemap.xml

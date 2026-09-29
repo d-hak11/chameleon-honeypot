@@ -1,0 +1,49 @@
+*.log
+__pycache__/
+*.pyc
+
+# Large raw HTTP captures kept as on-demand evidence; see evidence/moodle/EVIDENCE.md
+evidence/moodle/index.html
+evidence/moodle/login.html
+evidence/moodle/uclouvain_404.html
+
+# observe.sh raw captures (keep the distilled reference.md)
+evidence/observed/**/index.html
+evidence/observed/**/theme.css
+*.tfstate
+*.tfstate.*
+.terraform/
+*.pem
+.env
+salt
+
+# Pseudonymisation salt (Task 3 / GDPR). Never commit: with the salt, the
+# source_hash values in collected logs become reversible to raw addresses.
+secrets/
+*.salt
+
+# AWS CLI v2 installer unpacked locally for deployment work -- vendor files,
+# not project source.
+aws/
+awscliv2.zip
+
+# Phase 6 generation provenance log -- runtime output, not source.
+generation/generation_log.jsonl
+
+# Phase 6 generation checkpoint -- runtime state, not source.
+generation/checkpoint.json
+generation/stage4_run.log
+live-data/
+generation/stage4_raw_logs/
+generation/stage4_features.csv
+generation/stage4_labelled.csv
+generation/stage4_prefix*.csv
+analysis/chameleon_stix_bundle.json
+generation/*.html
+analysis/*.html
+evidence/observed/**/*.html
+
+# Datasets: pseudonymised session data and labels, never published
+*.jsonl
+analysis/live_labels*.csv
+datasets/

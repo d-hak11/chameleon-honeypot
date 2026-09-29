@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original graduation-cap favicon for the Greenwood College persona.
+     Drawn to echo the generic "learning platform" cap motif in the Moodle
+     brand colour (#0f6cbf); it is our own artwork, not Moodle's logo. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#8f2d3f"/>
+  <g fill="#ffffff">
+    <path d="M32 16l22 10-22 10L10 26z"/>
+    <path d="M14 33v10c0 4.5 8 8.5 18 8.5s18-4 18-8.5V33L32 40z"/>
+    <rect x="10" y="46" width="44" height="5" rx="2.5"/>
+  </g>
+</svg>

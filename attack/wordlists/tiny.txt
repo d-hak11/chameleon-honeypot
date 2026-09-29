@@ -1,0 +1,10 @@
+admin
+login
+wp-admin
+.env
+backup
+config
+api
+test
+robots.txt
+sitemap.xml
